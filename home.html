@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JobHub</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:white;
+}
+
+/* NAVBAR */
+
+nav{
+    background:#001f54;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 8%;
+}
+
+.logo{
+    color:white;
+    font-size:30px;
+    font-weight:bold;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:30px;
+}
+
+nav ul li a{
+    text-decoration:none;
+    color:white;
+    font-size:16px;
+}
+
+.login-btn{
+    padding:10px 20px;
+    border:none;
+    border-radius:5px;
+    background:white;
+    color:#001f54;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* HERO SECTION */
+
+.hero{
+    background:#001f54;
+    color:white;
+    text-align:center;
+    padding:80px 20px 120px;
+}
+
+.hero h1{
+    font-size:55px;
+    margin-bottom:20px;
+}
+
+.hero p{
+    font-size:20px;
+    margin-bottom:40px;
+    opacity:0.9;
+}
+
+.search-container{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.search-container input{
+    width:300px;
+    padding:15px;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+}
+
+.search-container button{
+    padding:15px 35px;
+    background:#ffb703;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* FEATURES */
+
+.features{
+    background:white;
+    padding:80px 8%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.section-title h2{
+    font-size:38px;
+    color:#001f54;
+}
+
+.cards{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+}
+
+.card{
+    width:300px;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+    text-align:center;
+}
+
+.card h3{
+    color:#001f54;
+    margin-bottom:15px;
+}
+
+.card p{
+    color:#555;
+    line-height:1.6;
+}
+
+/* JOB SECTION */
+
+.jobs{
+    padding:0 8% 80px;
+}
+
+.jobs h2{
+    text-align:center;
+    color:#001f54;
+    margin-bottom:40px;
+    font-size:38px;
+}
+
+.job-card{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.1);
+    margin-bottom:20px;
+}
+
+.job-card h3{
+    color:#001f54;
+    margin-bottom:10px;
+}
+
+.job-card p{
+    color:#555;
+    margin-bottom:8px;
+}
+
+.view-btn{
+    margin-top:10px;
+    padding:10px 20px;
+    border:none;
+    background:#001f54;
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+/* FOOTER */
+
+footer{
+    background:#001f54;
+    color:white;
+    text-align:center;
+    padding:25px;
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">JobHub</div>
+
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Jobs</a></li>
+        <li><a href="#">Companies</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+
+    <button class="login-btn">Login</button>
+</nav>
+
+<section class="hero">
+
+    <h1>Find Jobs From Every Platform</h1>
+
+    <p>
+        One search. Thousands of opportunities.
+        Aggregated from multiple job websites.
+    </p>
+
+    <div class="search-container">
+
+        <input
+        type="text"
+        placeholder="Job Title or Skill">
+
+        <input
+        type="text"
+        placeholder="Location">
+
+        <button>
+            Search Jobs
+        </button>
+
+    </div>
+
+</section>
+
+<section class="features">
+
+    <div class="section-title">
+        <h2>Why Choose JobHub?</h2>
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Multiple Sources</h3>
+            <p>
+                Collect jobs from company websites,
+                job boards and career portals.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Smart Search</h3>
+            <p>
+                Search by skill, company,
+                location and experience level.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Real-Time Updates</h3>
+            <p>
+                Stay updated with the latest
+                job openings across the web.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="jobs">
+
+    <h2>Featured Jobs</h2>
+
+    <div class="job-card">
+        <h3>Java Backend Developer</h3>
+        <p>Company: Tech Solutions</p>
+        <p>Location: Bangalore</p>
+        <button class="view-btn">View Job</button>
+    </div>
+
+    <div class="job-card">
+        <h3>Spring Boot Engineer</h3>
+        <p>Company: Infosys</p>
+        <p>Location: Pune</p>
+        <button class="view-btn">View Job</button>
+    </div>
+
+    <div class="job-card">
+        <h3>Software Developer</h3>
+        <p>Company: TCS</p>
+        <p>Location: Hyderabad</p>
+        <button class="view-btn">View Job</button>
+    </div>
+
+</section>
+
+<footer>
+    © 2026 JobHub | Aggregating opportunities from across the web
+</footer>
+
+</body>
+</html>
