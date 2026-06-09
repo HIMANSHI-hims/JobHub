@@ -3,4 +3,5 @@ This has a option for a personalized profile info where we can upload our person
 The frontend is designed via HTML,CSS.
 For the web scraping and the backend we intend to use the Java language, JSOUP and the APIs.
 The HTML Technologies used in the pages..home.html , login.html and profile.html
+The profile page is initiatly made of a dummy AANYA SHARMA.
 
