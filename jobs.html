@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>JobHub — Find Your Dream Job</title>
+<meta name="description" content="Search jobs, filter by your skills, and apply to top companies on JobHub." />
+<style>
+  :root {
+    --navy-deep:#0a1f4d; --navy:#13306b; --navy-mid:#1d4488;
+    --navy-soft:#2a5ca8; --navy-tint:#e8eef9; --navy-tint-2:#f4f7fc;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;
+    background:linear-gradient(135deg,#fff 0%,var(--navy-tint-2) 50%,#fff 100%);
+    color:var(--navy-deep);font-family:'Segoe UI',Tahoma,sans-serif}
+  header{background:linear-gradient(90deg,var(--navy-deep),var(--navy-mid),var(--navy-deep));
+    color:#fff;padding:32px 20px;text-align:center;box-shadow:0 4px 20px rgba(10,31,77,.33)}
+  header h1{margin:0;font-size:2.6rem;letter-spacing:1px;text-shadow:0 2px 8px rgba(0,0,0,.3)}
+  header p{margin-top:8px;font-size:1.05rem;opacity:.95}
+  .container{max-width:1200px;margin:30px auto;padding:0 20px}
+  .panel{background:linear-gradient(180deg,#fff,var(--navy-tint-2));
+    border-radius:14px;padding:25px;margin-bottom:30px;
+    box-shadow:0 8px 25px rgba(10,31,77,.08),inset 0 1px 0 #fff;
+    border:1px solid var(--navy-tint)}
+  .panel h2{color:var(--navy-deep);margin:0 0 15px;font-size:1.5rem;
+    border-left:5px solid var(--navy-mid);padding-left:10px}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  input[type=text]{flex:1;min-width:220px;padding:12px 16px;
+    border:2px solid var(--navy-tint);border-radius:8px;font-size:1rem;
+    background:#fff;color:var(--navy-deep);outline:none}
+  input[type=text]:focus{border-color:var(--navy-soft)}
+  button{background:linear-gradient(180deg,var(--navy-soft),var(--navy-deep));
+    color:#fff;border:none;padding:12px 22px;border-radius:8px;
+    cursor:pointer;font-size:1rem;font-weight:600;
+    box-shadow:0 4px 12px rgba(10,31,77,.33);transition:transform .15s}
+  button:hover{transform:translateY(-1px)}
+  button.secondary{background:linear-gradient(180deg,#6b7fa3,#3d4f73)}
+  .hint{font-size:.9rem;color:#566a92;margin:8px 0 0}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+  .empty{text-align:center;padding:40px;color:#566a92;font-style:italic}
+  .card{background:linear-gradient(160deg,#fff 0%,var(--navy-tint) 100%);
+    border:1px solid #d3deef;border-radius:14px;padding:20px;
+    box-shadow:0 6px 20px rgba(10,31,77,.1),inset 0 1px 0 rgba(255,255,255,.9);
+    transition:transform .25s,box-shadow .25s}
+  .card:hover{transform:translateY(-5px);box-shadow:0 12px 30px rgba(10,31,77,.2)}
+  .card h3{color:var(--navy-deep);font-size:1.25rem;margin:0 0 6px}
+  .card .company{color:var(--navy-mid);font-weight:600;margin-bottom:10px}
+  .card .loc{font-size:.95rem;margin:4px 0;color:#1f2a44}
+  .card .salary{color:#0a6e34;font-weight:700;margin-top:8px}
+  .tag{display:inline-block;background:var(--navy-tint);color:var(--navy-deep);
+    padding:3px 10px;border-radius:20px;font-size:.78rem;margin:2px;font-weight:600}
+  .apply{width:100%;margin-top:12px}
+  footer{text-align:center;padding:20px;color:#566a92;font-size:.9rem}
+</style>
+</head>
+<body>
+  <header>
+    <h1>💼 JobHub</h1>
+    <p>Discover your next opportunity — built for ambitious careers</p>
+  </header>
+
+  <div class="container">
+    <section class="panel">
+      <h2>🔍 Search Jobs</h2>
+      <div class="row">
+        <input id="searchInput" type="text" placeholder="Search by job title, company, or location..." />
+        <button onclick="searchJobs()">Search</button>
+        <button class="secondary" onclick="resetJobs()">Reset</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>🎯 Smart Match — Filter by Your Skills</h2>
+      <div class="row">
+        <input id="skillsInput" type="text" placeholder="Enter your skills (e.g. React, Python, SQL, Figma)" />
+        <button onclick="filterBySkills()">Find Matching Jobs</button>
+      </div>
+      <p class="hint">Separate multiple skills with commas. We'll auto-match jobs that fit your profile.</p>
+    </section>
+
+    <section class="panel">
+      <h2>📋 Available Positions</h2>
+      <div id="jobsGrid" class="grid"></div>
+    </section>
+  </div>
+
+  <footer>© 2026 JobHub — Crafted with care for job seekers.</footer>
+
+<script>
+const JOBS = [
+  {title:"Frontend Developer",company:"Google",location:"Bangalore, India",salary:"₹18-25 LPA",skills:["React","JavaScript","CSS","HTML"]},
+  {title:"Backend Engineer",company:"Microsoft",location:"Hyderabad, India",salary:"₹22-30 LPA",skills:["Node.js","Python","SQL","AWS"]},
+  {title:"Data Scientist",company:"Amazon",location:"Seattle, USA",salary:"$120K-150K",skills:["Python","Machine Learning","SQL","TensorFlow"]},
+  {title:"UI/UX Designer",company:"Adobe",location:"Remote",salary:"₹12-18 LPA",skills:["Figma","Adobe XD","Prototyping","CSS"]},
+  {title:"DevOps Engineer",company:"Netflix",location:"Los Angeles, USA",salary:"$130K-160K",skills:["Docker","Kubernetes","AWS","CI/CD"]},
+  {title:"Full Stack Developer",company:"Meta",location:"London, UK",salary:"£70K-90K",skills:["React","Node.js","MongoDB","GraphQL"]},
+  {title:"Mobile App Developer",company:"Flipkart",location:"Bangalore, India",salary:"₹15-22 LPA",skills:["Flutter","React Native","Dart","Swift"]},
+  {title:"Cloud Architect",company:"IBM",location:"Pune, India",salary:"₹28-40 LPA",skills:["AWS","Azure","Terraform","Kubernetes"]},
+  {title:"Product Manager",company:"Spotify",location:"New York, USA",salary:"$140K-180K",skills:["Strategy","Analytics","Agile","Roadmapping"]},
+  {title:"Cybersecurity Analyst",company:"Cisco",location:"Bangalore, India",salary:"₹16-24 LPA",skills:["Networking","Linux","Python","Security"]},
+  {title:"AI Research Engineer",company:"OpenAI",location:"San Francisco, USA",salary:"$180K-250K",skills:["Python","PyTorch","NLP","Deep Learning"]},
+  {title:"QA Automation Engineer",company:"Infosys",location:"Chennai, India",salary:"₹10-15 LPA",skills:["Selenium","Java","TestNG","Cypress"]}
+];
+const grid = document.getElementById("jobsGrid");
+function renderJobs(list){
+  if(!list.length){grid.innerHTML='<div class="empty">No jobs found. Try a different search or skill set.</div>';return;}
+  grid.innerHTML = list.map(j=>`
+    <div class="card">
+      <h3>${j.title}</h3>
+      <div class="company">🏢 ${j.company}</div>
+      <p class="loc">📍 ${j.location}</p>
+      <div class="salary">💰 ${j.salary}</div>
+      <div>${j.skills.map(s=>`<span class="tag">${s}</span>`).join("")}</div>
+      <button class="apply" onclick="applyJob('${j.title.replace(/'/g,"\\'")}','${j.company.replace(/'/g,"\\'")}')">Apply Now</button>
+    </div>`).join("");
+}
+function searchJobs(){
+  const q=document.getElementById("searchInput").value.toLowerCase().trim();
+  if(!q)return renderJobs(JOBS);
+  renderJobs(JOBS.filter(j=>j.title.toLowerCase().includes(q)||j.company.toLowerCase().includes(q)||j.location.toLowerCase().includes(q)));
+}
+function filterBySkills(){
+  const raw=document.getElementById("skillsInput").value.toLowerCase().trim();
+  if(!raw)return renderJobs(JOBS);
+  const us=raw.split(",").map(s=>s.trim()).filter(Boolean);
+  renderJobs(JOBS.filter(j=>j.skills.some(sk=>us.some(u=>sk.toLowerCase().includes(u)))));
+}
+function resetJobs(){
+  document.getElementById("searchInput").value="";
+  document.getElementById("skillsInput").value="";
+  renderJobs(JOBS);
+}
+function applyJob(title,company){
+  alert(`✅ Application submitted for "${title}" at ${company}!\n\nOur team will contact you soon.`);
+}
+document.getElementById("searchInput").addEventListener("keyup",e=>{if(e.key==="Enter")searchJobs();});
+document.getElementById("skillsInput").addEventListener("keyup",e=>{if(e.key==="Enter")filterBySkills();});
+renderJobs(JOBS);
+</script>
+</body>
+</html>
