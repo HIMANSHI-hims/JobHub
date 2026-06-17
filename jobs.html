@@ -131,8 +131,9 @@ function resetJobs(){
   document.getElementById("skillsInput").value="";
   renderJobs(JOBS);
 }
-function applyJob(title,company){
-  alert(`✅ Application submitted for "${title}" at ${company}!\n\nOur team will contact you soon.`);
+function applyJob(title, company){
+  window.location.href =
+    `apply.html?job=${encodeURIComponent(title)}&company=${encodeURIComponent(company)}`;
 }
 document.getElementById("searchInput").addEventListener("keyup",e=>{if(e.key==="Enter")searchJobs();});
 document.getElementById("skillsInput").addEventListener("keyup",e=>{if(e.key==="Enter")filterBySkills();});

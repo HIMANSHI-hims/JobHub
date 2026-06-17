@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Application Form</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f4f7fc;
+    padding:40px 20px;
+}
+
+.application-container{
+    display:flex;
+    justify-content:center;
+}
+
+.application-card{
+    width:100%;
+    max-width:1100px;
+    background:white;
+    border-radius:20px;
+    padding:35px;
+    border:1px solid #d7e2f3;
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+.application-card h1{
+    text-align:center;
+    color:#0d2d6c;
+    margin-bottom:30px;
+    font-size:2rem;
+}
+
+.section{
+    margin-bottom:35px;
+}
+
+.section h2{
+    color:#0d2d6c;
+    margin-bottom:20px;
+    border-bottom:2px solid #d7e2f3;
+    padding-bottom:10px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+}
+
+.input-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.input-group label{
+    margin-bottom:8px;
+    font-weight:600;
+    color:#0d2d6c;
+}
+
+.input-group input{
+    padding:12px;
+    border:1px solid #cfd8e7;
+    border-radius:10px;
+    font-size:15px;
+    transition:0.3s;
+}
+
+.input-group input:focus{
+    outline:none;
+    border-color:#2457c5;
+    box-shadow:0 0 8px rgba(36,87,197,0.2);
+}
+
+.full-width{
+    grid-column:1/-1;
+}
+
+.radio-group{
+    margin-top:10px;
+}
+
+.radio-options{
+    display:flex;
+    gap:30px;
+    margin-top:10px;
+}
+
+.radio-options label{
+    color:#0d2d6c;
+    font-weight:500;
+}
+
+.apply-btn{
+    width:100%;
+    margin-top:20px;
+    padding:16px;
+    border:none;
+    border-radius:12px;
+    font-size:20px;
+    font-weight:bold;
+    color:white;
+    cursor:pointer;
+    background:linear-gradient(
+        180deg,
+        #2457c5 0%,
+        #163f96 100%
+    );
+    box-shadow:0 8px 20px rgba(22,63,150,0.35);
+    transition:0.3s;
+}
+
+.apply-btn:hover{
+    transform:translateY(-2px);
+}
+
+.required{
+    color:red;
+}
+</style>
+</head>
+<script>
+const params = new URLSearchParams(window.location.search);
+
+const job = params.get("job");
+const company = params.get("company");
+
+if(job && company){
+    document.getElementById("jobInfo").innerHTML =
+        `Applying for <b>${job}</b> at <b>${company}</b>`;
+}
+</script>
+<body>
+
+<div class="application-container">
+
+<div class="application-card">
+
+<h1>Job Application Form</h1>
+<h3 id="jobInfo"
+    style="text-align:center;color:#2457c5;margin-bottom:20px;">
+</h3>
+
+<form id="jobApplicationForm">
+
+    <!-- Personal Information -->
+    <div class="section">
+
+        <h2>Personal Information</h2>
+
+        <div class="form-grid">
+
+            <div class="input-group">
+                <label>First Name <span class="required">*</span></label>
+                <input type="text" id="firstName" required>
+            </div>
+
+            <div class="input-group">
+                <label>Middle Name</label>
+                <input type="text">
+            </div>
+
+            <div class="input-group">
+                <label>Surname <span class="required">*</span></label>
+                <input type="text" required>
+            </div>
+
+            <div class="input-group">
+                <label>Phone Number <span class="required">*</span></label>
+                <input type="tel" required>
+            </div>
+
+            <div class="input-group">
+                <label>Email <span class="required">*</span></label>
+                <input type="email" required>
+            </div>
+
+            <div class="input-group">
+                <label>Location <span class="required">*</span></label>
+                <input type="text" required>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Educational Details -->
+    <div class="section">
+
+        <h2>Educational Details</h2>
+
+        <div class="form-grid">
+
+            <div class="input-group">
+                <label>Institution 1 <span class="required">*</span></label>
+                <input type="text" required>
+            </div>
+
+            <div class="input-group">
+                <label>Institution 2 <span class="required">*</span></label>
+                <input type="text" required>
+            </div>
+
+            <div class="input-group">
+                <label>Institution 3 <span class="required">*</span></label>
+                <input type="text" required>
+            </div>
+
+            <div class="input-group">
+                <label>Grade Secured 1 <span class="required">*</span></label>
+                <input type="text" required>
+            </div>
+
+            <div class="input-group">
+                <label>Grade Secured 2 <span class="required">*</span></label>
+                <input type="text" required>
+            </div>
+
+            <div class="input-group full-width">
+                <label>GitHub Profile Link <span class="required">*</span></label>
+                <input
+                    type="url"
+                    placeholder="https://github.com/yourusername"
+                    required>
+            </div>
+
+            <div class="input-group full-width">
+                <label>Upload Resume <span class="required">*</span></label>
+                <input
+                    type="file"
+                    accept=".pdf,.doc,.docx"
+                    required>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Additional Information -->
+    <div class="section">
+
+        <h2>Additional Information</h2>
+
+        <div class="radio-group">
+
+            <label style="font-weight:600;color:#0d2d6c;">
+                Are you ready to relocate?
+                <span class="required">*</span>
+            </label>
+
+            <div class="radio-options">
+
+                <label>
+                    <input type="radio" name="relocate" required>
+                    Yes
+                </label>
+
+                <label>
+                    <input type="radio" name="relocate">
+                    No
+                </label>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <button type="submit" class="apply-btn">
+        Apply Now
+    </button>
+
+</form>
+
+</div>
+</div>
+
+<script>
+document.getElementById("jobApplicationForm")
+.addEventListener("submit", function(event){
+
+    event.preventDefault();
+
+    if(!this.checkValidity()){
+        alert("Please fill all compulsory fields before submitting.");
+        this.reportValidity();
+        return;
+    }
+
+    let firstName = document.getElementById("firstName").value;
+
+    alert(
+        "Thank you " +
+        firstName +
+        "! Your application has been submitted successfully."
+    );
+
+    this.reset();
+});
+</script>
+
+</body>
+</html>
