@@ -64,15 +64,119 @@
     cursor: pointer;
     border: none;
     transition: all .2s;
+    font-family: 'DM Sans', sans-serif;
   }
   .btn-outline { background: transparent; border: 1.5px solid var(--navy-muted); color: var(--white); }
   .btn-outline:hover { border-color: var(--accent-bright); color: var(--accent-bright); }
   .btn-primary { background: var(--accent); color: var(--white); }
   .btn-primary:hover { background: var(--accent-bright); }
+  .user-chip {
+    font-size: .78rem;
+    color: var(--gray-mid);
+    background: rgba(255,255,255,.1);
+    padding: .2rem .7rem;
+    border-radius: 20px;
+  }
+
+  /* ── LOGIN SCREEN ── */
+  #login-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 56px);
+    padding: 2rem;
+  }
+  .login-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 2.5rem 2rem;
+    width: 100%;
+    max-width: 400px;
+    animation: fadeUp .4s ease both;
+  }
+  .login-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--navy);
+    margin-bottom: .3rem;
+  }
+  .login-card p {
+    font-size: .85rem;
+    color: var(--gray-text);
+    margin-bottom: 1.75rem;
+  }
+  .login-field { display: flex; flex-direction: column; gap: .3rem; margin-bottom: 1rem; }
+  .login-field label {
+    font-size: .75rem;
+    font-weight: 600;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+  .login-field input {
+    padding: .6rem .9rem;
+    border: 1.5px solid var(--gray-light);
+    border-radius: 8px;
+    font-size: .9rem;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--navy);
+    outline: none;
+    transition: border-color .2s;
+    background: var(--off-white);
+  }
+  .login-field input:focus { border-color: var(--accent); background: var(--white); }
+  .login-divider {
+    height: 1px;
+    background: var(--gray-light);
+    margin: 1rem 0;
+  }
+  .login-optional-label {
+    font-size: .75rem;
+    font-weight: 600;
+    color: var(--gray-mid);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin-bottom: .75rem;
+    display: block;
+  }
+  .login-err {
+    font-size: .8rem;
+    color: var(--danger);
+    margin-bottom: .75rem;
+    display: none;
+    padding: .5rem .75rem;
+    background: #fef2f2;
+    border-radius: 6px;
+    border: 1px solid #fecaca;
+  }
+  .login-btn {
+    width: 100%;
+    padding: .7rem;
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-size: .95rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: background .2s;
+    margin-top: .5rem;
+  }
+  .login-btn:hover { background: var(--accent); }
+  .login-hint {
+    font-size: .76rem;
+    color: var(--gray-mid);
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  /* ── PROFILE SCREEN ── */
+  #profile-screen { display: none; }
 
   /* ── LAYOUT ── */
   .page { max-width: 1060px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
-
   .profile-grid {
     display: grid;
     grid-template-columns: 310px 1fr;
@@ -89,7 +193,6 @@
     transition: box-shadow .25s;
   }
   .card:hover { box-shadow: var(--shadow); }
-
   .card-header {
     background: var(--navy);
     padding: 1rem 1.4rem .85rem;
@@ -108,7 +211,7 @@
   /* ── LEFT COLUMN ── */
   .left-col { display: flex; flex-direction: column; gap: 1.5rem; }
 
-  /* Photo + Name hero */
+  /* Hero card */
   .hero-card {
     background: var(--white);
     border-radius: var(--radius);
@@ -128,7 +231,7 @@
   }
   .hero-body { padding: 0 1.4rem 1.4rem; }
 
-  /* Photo upload area */
+  /* Photo upload */
   .photo-wrap {
     position: relative;
     width: 96px;
@@ -181,21 +284,29 @@
   .photo-edit-btn:hover { background: var(--accent-bright); }
   #photoInput { display: none; }
 
-  /* Name + title hero */
+  /* Hero name/title */
   .hero-name {
     font-family: 'Playfair Display', serif;
     font-size: 1.45rem;
     font-weight: 700;
     color: var(--navy);
     line-height: 1.2;
+    outline: none;
+    border-bottom: 1.5px dashed transparent;
+    transition: border-color .2s;
   }
+  .hero-name:focus { border-bottom-color: var(--accent); }
   .hero-title {
     font-size: .88rem;
     color: var(--gray-text);
     font-weight: 500;
     margin-top: .2rem;
     margin-bottom: .9rem;
+    outline: none;
+    border-bottom: 1.5px dashed transparent;
+    transition: border-color .2s;
   }
+  .hero-title:focus { border-bottom-color: var(--accent); }
   .availability-badge {
     display: inline-flex;
     align-items: center;
@@ -218,7 +329,7 @@
     50% { opacity: .5; transform: scale(1.3); }
   }
 
-  /* Contact details */
+  /* Contact */
   .contact-list { list-style: none; display: flex; flex-direction: column; gap: .65rem; }
   .contact-item { display: flex; align-items: center; gap: .7rem; }
   .contact-icon {
@@ -231,9 +342,6 @@
     flex-shrink: 0;
     color: var(--accent);
   }
-  .contact-text { font-size: .85rem; color: var(--navy); flex: 1; min-width: 0; }
-  .contact-text a { color: var(--accent); text-decoration: none; }
-  .contact-text a:hover { text-decoration: underline; }
   .editable-field {
     font-size: .85rem;
     color: var(--navy);
@@ -246,29 +354,22 @@
     border-bottom: 1.5px dashed transparent;
     transition: border-color .2s;
   }
-  .editable-field:focus {
-    border-bottom-color: var(--accent);
-    cursor: text;
-  }
+  .editable-field:focus { border-bottom-color: var(--accent); cursor: text; }
   .editable-field::placeholder { color: var(--gray-mid); }
-
-  /* DOB */
-  .dob-row { display: flex; align-items: center; gap: .7rem; }
-  .dob-label { font-size: .78rem; color: var(--gray-text); font-weight: 500; text-transform: uppercase; letter-spacing: .5px; }
-  .dob-value { font-size: .88rem; font-weight: 600; color: var(--navy); }
+  .dob-label {
+    font-size: .78rem;
+    color: var(--gray-text);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
 
   /* Languages */
   .lang-list { display: flex; flex-direction: column; gap: .9rem; }
-  .lang-item {}
   .lang-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: .3rem; }
   .lang-name { font-size: .86rem; font-weight: 600; color: var(--navy); }
   .lang-level { font-size: .75rem; font-weight: 500; color: var(--gray-text); }
-  .lang-bar {
-    height: 5px;
-    background: var(--gray-light);
-    border-radius: 10px;
-    overflow: hidden;
-  }
+  .lang-bar { height: 5px; background: var(--gray-light); border-radius: 10px; overflow: hidden; }
   .lang-fill {
     height: 100%;
     background: linear-gradient(90deg, var(--accent) 0%, var(--accent-bright) 100%);
@@ -323,6 +424,7 @@
     font-size: .82rem;
     font-weight: 600;
     cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
     transition: background .2s;
   }
   .add-tag-btn:hover { background: var(--accent); }
@@ -330,7 +432,7 @@
   /* ── RIGHT COLUMN ── */
   .right-col { display: flex; flex-direction: column; gap: 1.5rem; }
 
-  /* Edit icon button */
+  /* Icon button */
   .icon-btn {
     width: 30px; height: 30px;
     border-radius: 8px;
@@ -345,7 +447,7 @@
   }
   .icon-btn:hover { background: rgba(255,255,255,.22); }
 
-  /* Timeline items (Education / Experience) */
+  /* Timeline */
   .timeline { display: flex; flex-direction: column; gap: 1.1rem; }
   .timeline-item {
     display: grid;
@@ -375,15 +477,10 @@
     font-size: 1.1rem;
     margin-top: 2px;
   }
-  .timeline-content {}
   .timeline-title { font-weight: 600; font-size: .93rem; color: var(--navy); line-height: 1.3; }
   .timeline-sub { font-size: .82rem; color: var(--accent); font-weight: 500; margin: .12rem 0; }
   .timeline-date { font-size: .77rem; color: var(--gray-text); margin-bottom: .25rem; }
-  .timeline-desc {
-    font-size: .82rem;
-    color: var(--gray-text);
-    line-height: 1.55;
-  }
+  .timeline-desc { font-size: .82rem; color: var(--gray-text); line-height: 1.55; }
   .timeline-actions { display: flex; gap: .4rem; margin-top: .4rem; }
   .action-chip {
     padding: .2rem .6rem;
@@ -395,9 +492,12 @@
     color: var(--gray-text);
     cursor: pointer;
     transition: all .15s;
-    display: flex; align-items: center; gap: .3rem;
+    display: inline-flex;
+    align-items: center;
+    gap: .3rem;
+    font-family: 'DM Sans', sans-serif;
   }
-  .action-chip:hover { background: var(--off-white); border-color: var(--accent); color: var(--accent); }
+  .action-chip:hover { border-color: var(--accent); color: var(--accent); }
 
   /* Add entry form */
   .add-form {
@@ -422,6 +522,7 @@
     color: var(--navy);
     background: var(--white);
     outline: none;
+    box-sizing: border-box;
     transition: border-color .2s;
   }
   .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
@@ -433,16 +534,10 @@
 
   /* Skills */
   .skills-grid { display: flex; flex-direction: column; gap: .85rem; }
-  .skill-item {}
   .skill-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: .35rem; }
-  .skill-name { font-size: .87rem; font-weight: 600; color: var(--navy); }
+  .skill-name { font-size: .87rem; font-weight: 600; color: var(--navy); outline: none; }
   .skill-pct { font-size: .78rem; font-weight: 700; color: var(--accent); }
-  .skill-bar {
-    height: 8px;
-    background: var(--gray-light);
-    border-radius: 10px;
-    overflow: hidden;
-  }
+  .skill-bar { height: 8px; background: var(--gray-light); border-radius: 10px; overflow: hidden; }
   .skill-fill {
     height: 100%;
     border-radius: 10px;
@@ -478,10 +573,13 @@
     border: 2px solid var(--white);
     box-shadow: 0 1px 4px rgba(0,0,0,.2);
   }
-
-  /* Add skill */
-  .add-skill-row { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; margin-top: .75rem; }
-  .add-skill-input { flex: 1; min-width: 120px; }
+  .add-skill-row {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: .75rem;
+  }
 
   /* Section add button */
   .add-section-btn {
@@ -504,8 +602,13 @@
   }
   .add-section-btn:hover { border-color: var(--accent); color: var(--accent); background: #eff6ff; }
 
-  /* Complete profile bar */
-  .progress-wrap { background: var(--white); border-radius: var(--radius); padding: 1rem 1.4rem; box-shadow: var(--shadow-sm); }
+  /* Profile completion bar */
+  .progress-wrap {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 1rem 1.4rem;
+    box-shadow: var(--shadow-sm);
+  }
   .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: .6rem; }
   .progress-label { font-size: .82rem; font-weight: 600; color: var(--navy); }
   .progress-pct { font-size: .82rem; font-weight: 700; color: var(--accent); }
@@ -517,26 +620,14 @@
     transition: width .6s ease;
   }
 
-  /* Responsive */
-  @media (max-width: 780px) {
-    .profile-grid { grid-template-columns: 1fr; }
-    .form-row { grid-template-columns: 1fr; }
-  }
-
-  /* Entrance animation */
-  .card, .hero-card, .progress-wrap {
-    animation: fadeUp .45s ease both;
-  }
-  .right-col > *:nth-child(1) { animation-delay: .05s; }
-  .right-col > *:nth-child(2) { animation-delay: .10s; }
-  .right-col > *:nth-child(3) { animation-delay: .15s; }
-  .left-col > *:nth-child(1) { animation-delay: .02s; }
-  .left-col > *:nth-child(2) { animation-delay: .07s; }
-  .left-col > *:nth-child(3) { animation-delay: .12s; }
-  .left-col > *:nth-child(4) { animation-delay: .17s; }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
+  /* Section count badge */
+  .section-count {
+    font-size: .72rem;
+    font-weight: 600;
+    color: var(--gray-mid);
+    background: rgba(255,255,255,.12);
+    padding: .15rem .5rem;
+    border-radius: 20px;
   }
 
   /* Toast */
@@ -558,13 +649,26 @@
   }
   .toast.show { opacity: 1; transform: translateY(0); }
 
-  .section-count {
-    font-size: .72rem;
-    font-weight: 600;
-    color: var(--gray-mid);
-    background: rgba(255,255,255,.12);
-    padding: .15rem .5rem;
-    border-radius: 20px;
+  /* Animations */
+  .card, .hero-card, .progress-wrap, .login-card {
+    animation: fadeUp .45s ease both;
+  }
+  .right-col > *:nth-child(1) { animation-delay: .05s; }
+  .right-col > *:nth-child(2) { animation-delay: .10s; }
+  .right-col > *:nth-child(3) { animation-delay: .15s; }
+  .left-col > *:nth-child(1) { animation-delay: .02s; }
+  .left-col > *:nth-child(2) { animation-delay: .07s; }
+  .left-col > *:nth-child(3) { animation-delay: .12s; }
+  .left-col > *:nth-child(4) { animation-delay: .17s; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Responsive */
+  @media (max-width: 780px) {
+    .profile-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -573,233 +677,268 @@
 <!-- TOP BAR -->
 <nav class="topbar">
   <div class="topbar-logo">Job<span>Hub</span></div>
-  <div class="topbar-actions">
-    <button class="btn-sm btn-outline" onclick="downloadProfile()">⬇ Download CV</button>
-    <button class="btn-sm btn-primary" onclick="showToast('Profile saved successfully!')">Save Profile</button>
+  <div class="topbar-actions" id="topbarActions">
+    <span style="font-size:.82rem;color:var(--gray-mid);">Please sign in</span>
   </div>
 </nav>
 
-<div class="page">
-  <!-- Profile completion -->
-  <div class="progress-wrap" style="margin-bottom:1.25rem;">
-    <div class="progress-header">
-      <span class="progress-label">Profile Completion</span>
-      <span class="progress-pct" id="progressPct">72%</span>
+<!-- ════ LOGIN SCREEN ════ -->
+<div id="login-screen">
+  <div class="login-card">
+    <h2>Welcome back</h2>
+    <p>Sign in to view and edit your profile.</p>
+
+    <div class="login-field">
+      <label>Username</label>
+      <input type="text" id="loginUsername" placeholder="e.g. himanshi_raj" autocomplete="username">
     </div>
-    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:72%"></div></div>
+    <div class="login-field">
+      <label>Password</label>
+      <input type="password" id="loginPassword" placeholder="Your password">
+    </div>
+
+    <div class="login-divider"></div>
+    <span class="login-optional-label">Profile info (optional — you can fill these later)</span>
+
+    <div class="login-field">
+      <label>Full Name</label>
+      <input type="text" id="loginFullname" placeholder="e.g. Himanshi Agrawal">
+    </div>
+    <div class="login-field">
+      <label>Role / Title</label>
+      <input type="text" id="loginTitle" placeholder="e.g. Full Stack Developer">
+    </div>
+
+    <div class="login-err" id="loginErr">Please enter a username and password.</div>
+    <button class="login-btn" onclick="doLogin()">Sign In →</button>
+    <div class="login-hint">This is a demo — any credentials will work.</div>
   </div>
+</div>
 
-  <div class="profile-grid">
-    <!-- ════ LEFT COLUMN ════ -->
-    <div class="left-col">
+<!-- ════ PROFILE SCREEN ════ -->
+<div id="profile-screen">
+  <div class="page">
 
-      <!-- Hero: Photo + Name -->
-      <div class="hero-card">
-        <div class="hero-banner"></div>
-        <div class="hero-body">
-          <div class="photo-wrap">
-            <div class="photo-circle" onclick="document.getElementById('photoInput').click()" id="photoCircle">
-              <div class="photo-placeholder" id="photoPlaceholder">
-                <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                <span>Add Photo</span>
-              </div>
-              <img id="profileImg" src="" alt="Profile" style="display:none"/>
-            </div>
-            <div class="photo-edit-btn" onclick="document.getElementById('photoInput').click()">
-              <svg width="12" height="12" fill="none" stroke="white" stroke-width="2.2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-            </div>
-            <input type="file" id="photoInput" accept="image/*" onchange="handlePhoto(event)">
-          </div>
-
-          <div contenteditable="true" class="hero-name" id="heroName" spellcheck="false" data-placeholder="Your Full Name">Aanya Sharma</div>
-          <div contenteditable="true" class="hero-title" id="heroTitle" spellcheck="false" data-placeholder="Job Title / Role">Senior UX Designer · Product Strategist</div>
-          <div class="availability-badge"><span class="dot"></span>Open to Opportunities</div>
-        </div>
+    <!-- Profile completion -->
+    <div class="progress-wrap" style="margin-bottom:1.25rem;">
+      <div class="progress-header">
+        <span class="progress-label">Profile Completion</span>
+        <span class="progress-pct" id="progressPct">0%</span>
       </div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    </div>
 
-      <!-- Contact Details -->
-      <div class="card">
-        <div class="card-header">
-          <span class="card-title">Contact Details</span>
-          <button class="icon-btn" onclick="showToast('Edit contact info')">
-            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-          </button>
+    <div class="profile-grid">
+
+      <!-- ════ LEFT COLUMN ════ -->
+      <div class="left-col">
+
+        <!-- Hero: Photo + Name -->
+        <div class="hero-card">
+          <div class="hero-banner"></div>
+          <div class="hero-body">
+            <div class="photo-wrap">
+              <div class="photo-circle" onclick="document.getElementById('photoInput').click()" id="photoCircle">
+                <div class="photo-placeholder" id="photoPlaceholder">
+                  <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  <span>Add Photo</span>
+                </div>
+                <img id="profileImg" src="" alt="Profile" style="display:none"/>
+              </div>
+              <div class="photo-edit-btn" onclick="document.getElementById('photoInput').click()">
+                <svg width="12" height="12" fill="none" stroke="white" stroke-width="2.2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              </div>
+              <input type="file" id="photoInput" accept="image/*" onchange="handlePhoto(event)">
+            </div>
+
+            <div contenteditable="true" class="hero-name" id="heroName" spellcheck="false" data-placeholder="Your Full Name"></div>
+            <div contenteditable="true" class="hero-title" id="heroTitle" spellcheck="false" data-placeholder="Job Title / Role"></div>
+            <div class="availability-badge"><span class="dot"></span>Open to Opportunities</div>
+          </div>
         </div>
-        <div class="card-body">
-          <ul class="contact-list">
-            <li class="contact-item">
-              <div class="contact-icon">
-                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              </div>
-              <input class="editable-field" id="emailField" type="text" value="aanya.sharma@email.com" placeholder="your@email.com">
-            </li>
-            <li class="contact-item">
-              <div class="contact-icon">
-                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.59 3.44 2 2 0 0 1 3.56 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              </div>
-              <input class="editable-field" id="phoneField" type="text" value="+91 98765 43210" placeholder="Phone number">
-            </li>
-            <li class="contact-item">
-              <div class="contact-icon">
-                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              </div>
-              <input class="editable-field" id="locationField" type="text" value="Lucknow, Uttar Pradesh" placeholder="City, Country">
-            </li>
-            <li class="contact-item">
-              <div class="contact-icon">
-                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-              </div>
-              <input class="editable-field" id="linkedinField" type="text" value="linkedin.com/in/aanya-sharma" placeholder="LinkedIn URL">
-            </li>
-            <li class="contact-item">
-              <div class="contact-icon">
-                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-              </div>
-              <input class="editable-field" id="websiteField" type="text" value="aanyadesigns.com" placeholder="Website / Portfolio">
-            </li>
-          </ul>
 
-          <!-- DOB -->
-          <div style="margin-top:1rem; padding-top:1rem; border-top:1.5px solid var(--gray-light);">
-            <div class="dob-row">
-              <div class="contact-icon" style="width:32px;height:32px;border-radius:8px;background:var(--off-white);display:flex;align-items:center;justify-content:center;color:var(--accent);">
-                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              </div>
-              <div style="flex:1;margin-left:.7rem;">
-                <div class="dob-label">Date of Birth</div>
-                <input type="date" class="editable-field" id="dobField" value="1998-03-15" style="font-weight:600;font-size:.88rem;">
+        <!-- Contact Details -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Contact Details</span>
+            <button class="icon-btn" onclick="showToast('Click any field to edit')">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <ul class="contact-list">
+              <li class="contact-item">
+                <div class="contact-icon">
+                  <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </div>
+                <input class="editable-field" id="emailField" type="text" placeholder="your@email.com">
+              </li>
+              <li class="contact-item">
+                <div class="contact-icon">
+                  <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.59 3.44 2 2 0 0 1 3.56 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+                <input class="editable-field" id="phoneField" type="text" placeholder="Phone number">
+              </li>
+              <li class="contact-item">
+                <div class="contact-icon">
+                  <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <input class="editable-field" id="locationField" type="text" placeholder="City, Country">
+              </li>
+              <li class="contact-item">
+                <div class="contact-icon">
+                  <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                </div>
+                <input class="editable-field" id="linkedinField" type="text" placeholder="LinkedIn URL">
+              </li>
+              <li class="contact-item">
+                <div class="contact-icon">
+                  <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                </div>
+                <input class="editable-field" id="websiteField" type="text" placeholder="Website / Portfolio">
+              </li>
+            </ul>
+
+            <!-- DOB -->
+            <div style="margin-top:1rem; padding-top:1rem; border-top:1.5px solid var(--gray-light);">
+              <div style="display:flex; align-items:center; gap:.7rem;">
+                <div class="contact-icon">
+                  <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                </div>
+                <div style="flex:1; margin-left:.7rem;">
+                  <div class="dob-label">Date of Birth</div>
+                  <input type="date" class="editable-field" id="dobField" style="font-weight:600;font-size:.88rem;">
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Languages -->
-      <div class="card">
-        <div class="card-header">
-          <span class="card-title">Languages</span>
-          <span class="section-count" id="langCount">3</span>
-        </div>
-        <div class="card-body">
-          <div class="lang-list" id="langList">
-            <!-- Rendered by JS -->
+        <!-- Languages -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Languages</span>
+            <span class="section-count" id="langCount">0</span>
           </div>
-          <div class="add-form" id="langForm">
-            <input class="form-input" id="langNameInput" placeholder="Language name (e.g. French)">
-            <select class="form-input" id="langLevelInput">
-              <option value="Native (100)">Native</option>
-              <option value="Fluent (85)">Fluent</option>
-              <option value="Advanced (70)">Advanced</option>
-              <option value="Intermediate (50)">Intermediate</option>
-              <option value="Beginner (30)">Beginner</option>
-            </select>
-            <div class="form-actions">
-              <button class="btn-sm form-cancel" onclick="closeForm('langForm')">Cancel</button>
-              <button class="btn-sm form-save" onclick="addLanguage()">Add</button>
+          <div class="card-body">
+            <div class="lang-list" id="langList"></div>
+            <div class="add-form" id="langForm">
+              <input class="form-input" id="langNameInput" placeholder="Language name (e.g. French)">
+              <select class="form-input" id="langLevelInput">
+                <option value="Native|100">Native</option>
+                <option value="Fluent|88">Fluent</option>
+                <option value="Advanced|70">Advanced</option>
+                <option value="Intermediate|50">Intermediate</option>
+                <option value="Beginner|30">Beginner</option>
+              </select>
+              <div class="form-actions">
+                <button class="btn-sm form-cancel" onclick="closeForm('langForm')">Cancel</button>
+                <button class="btn-sm form-save" onclick="addLanguage()">Add</button>
+              </div>
             </div>
-          </div>
-          <button class="add-section-btn" onclick="toggleForm('langForm')">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Add Language
-          </button>
-        </div>
-      </div>
-
-      <!-- Interests -->
-      <div class="card">
-        <div class="card-header">
-          <span class="card-title">Interests</span>
-        </div>
-        <div class="card-body">
-          <div class="interests-wrap" id="interestsWrap"></div>
-          <div class="add-tag-form">
-            <input class="add-tag-input" id="interestInput" placeholder="Add an interest…" onkeydown="if(event.key==='Enter')addInterest()">
-            <button class="add-tag-btn" onclick="addInterest()">+ Add</button>
+            <button class="add-section-btn" onclick="toggleForm('langForm')">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Language
+            </button>
           </div>
         </div>
-      </div>
 
-    </div><!-- /left-col -->
-
-    <!-- ════ RIGHT COLUMN ════ -->
-    <div class="right-col">
-
-      <!-- Education -->
-      <div class="card">
-        <div class="card-header">
-          <span class="card-title">Education</span>
-          <span class="section-count" id="eduCount">2</span>
-        </div>
-        <div class="card-body">
-          <div class="timeline" id="eduTimeline"></div>
-          <div class="add-form" id="eduForm">
-            <div class="form-row">
-              <input class="form-input" id="eduDegree" placeholder="Degree / Qualification">
-              <input class="form-input" id="eduInstitution" placeholder="Institution / University">
-            </div>
-            <div class="form-row">
-              <input class="form-input" id="eduYear" placeholder="Year (e.g. 2018 – 2022)">
-              <input class="form-input" id="eduGrade" placeholder="Grade / CGPA (optional)">
-            </div>
-            <textarea class="form-textarea" id="eduDesc" placeholder="Brief description or achievements…"></textarea>
-            <div class="form-actions">
-              <button class="btn-sm form-cancel" onclick="closeForm('eduForm')">Cancel</button>
-              <button class="btn-sm form-save" onclick="addEducation()">Save</button>
+        <!-- Interests -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Interests</span>
+          </div>
+          <div class="card-body">
+            <div class="interests-wrap" id="interestsWrap"></div>
+            <div class="add-tag-form">
+              <input class="add-tag-input" id="interestInput" placeholder="Add an interest…" onkeydown="if(event.key==='Enter')addInterest()">
+              <button class="add-tag-btn" onclick="addInterest()">+ Add</button>
             </div>
           </div>
-          <button class="add-section-btn" onclick="toggleForm('eduForm')">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Add Education
-          </button>
         </div>
-      </div>
 
-      <!-- Experience -->
-      <div class="card">
-        <div class="card-header">
-          <span class="card-title">Work Experience</span>
-          <span class="section-count" id="expCount">2</span>
-        </div>
-        <div class="card-body">
-          <div class="timeline" id="expTimeline"></div>
-          <div class="add-form" id="expForm">
-            <div class="form-row">
-              <input class="form-input" id="expTitle" placeholder="Job Title">
-              <input class="form-input" id="expCompany" placeholder="Company Name">
-            </div>
-            <div class="form-row">
-              <input class="form-input" id="expDuration" placeholder="Duration (e.g. Jan 2022 – Present)">
-              <input class="form-input" id="expLocation" placeholder="Location (e.g. Remote / Bengaluru)">
-            </div>
-            <textarea class="form-textarea" id="expDesc" placeholder="Key responsibilities & achievements…"></textarea>
-            <div class="form-actions">
-              <button class="btn-sm form-cancel" onclick="closeForm('expForm')">Cancel</button>
-              <button class="btn-sm form-save" onclick="addExperience()">Save</button>
-            </div>
+      </div><!-- /left-col -->
+
+      <!-- ════ RIGHT COLUMN ════ -->
+      <div class="right-col">
+
+        <!-- Education -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Education</span>
+            <span class="section-count" id="eduCount">0</span>
           </div>
-          <button class="add-section-btn" onclick="toggleForm('expForm')">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Add Experience
-          </button>
-        </div>
-      </div>
-
-      <!-- Skills -->
-      <div class="card">
-        <div class="card-header">
-          <span class="card-title">Skills</span>
-          <span class="section-count" id="skillCount">5</span>
-        </div>
-        <div class="card-body">
-          <div class="skills-grid" id="skillsGrid"></div>
-          <div class="add-skill-row" style="margin-top:.9rem;">
-            <input class="form-input add-skill-input" id="skillNameInput" placeholder="Skill name (e.g. React)">
-            <button class="btn-sm btn-primary" onclick="addSkill()">+ Add Skill</button>
+          <div class="card-body">
+            <div class="timeline" id="eduTimeline"></div>
+            <div class="add-form" id="eduForm">
+              <div class="form-row">
+                <input class="form-input" id="eduDegree" placeholder="Degree / Qualification">
+                <input class="form-input" id="eduInstitution" placeholder="Institution / University">
+              </div>
+              <div class="form-row">
+                <input class="form-input" id="eduYear" placeholder="Year (e.g. 2020 – 2024)">
+                <input class="form-input" id="eduGrade" placeholder="Grade / CGPA (optional)">
+              </div>
+              <textarea class="form-textarea" id="eduDesc" placeholder="Brief description or achievements…"></textarea>
+              <div class="form-actions">
+                <button class="btn-sm form-cancel" onclick="closeForm('eduForm')">Cancel</button>
+                <button class="btn-sm form-save" onclick="addEducation()">Save</button>
+              </div>
+            </div>
+            <button class="add-section-btn" onclick="toggleForm('eduForm')">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Education
+            </button>
           </div>
         </div>
-      </div>
 
-    </div><!-- /right-col -->
+        <!-- Work Experience -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Work Experience</span>
+            <span class="section-count" id="expCount">0</span>
+          </div>
+          <div class="card-body">
+            <div class="timeline" id="expTimeline"></div>
+            <div class="add-form" id="expForm">
+              <div class="form-row">
+                <input class="form-input" id="expTitle" placeholder="Job Title">
+                <input class="form-input" id="expCompany" placeholder="Company Name">
+              </div>
+              <div class="form-row">
+                <input class="form-input" id="expDuration" placeholder="Duration (e.g. Jan 2022 – Present)">
+                <input class="form-input" id="expLocation" placeholder="Location (e.g. Remote / Bengaluru)">
+              </div>
+              <textarea class="form-textarea" id="expDesc" placeholder="Key responsibilities & achievements…"></textarea>
+              <div class="form-actions">
+                <button class="btn-sm form-cancel" onclick="closeForm('expForm')">Cancel</button>
+                <button class="btn-sm form-save" onclick="addExperience()">Save</button>
+              </div>
+            </div>
+            <button class="add-section-btn" onclick="toggleForm('expForm')">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Experience
+            </button>
+          </div>
+        </div>
+
+        <!-- Skills -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Skills</span>
+            <span class="section-count" id="skillCount">0</span>
+          </div>
+          <div class="card-body">
+            <div class="skills-grid" id="skillsGrid"></div>
+            <div class="add-skill-row">
+              <input class="form-input" id="skillNameInput" placeholder="Skill name (e.g. React)" style="flex:1;min-width:120px;">
+              <button class="btn-sm btn-primary" onclick="addSkill()">+ Add Skill</button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /right-col -->
+    </div>
   </div>
 </div>
 
@@ -807,42 +946,69 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ── DATA ──────────────────────────────────────────────
+// ── STATE ─────────────────────────────────────────────
 let state = {
-  education: [
-    { id: 1, degree: "B.Tech in Computer Science", institution: "IIT Kanpur", year: "2016 – 2020", grade: "8.7 CGPA", desc: "Specialization in Human-Computer Interaction. Dean's List 2019." },
-    { id: 2, degree: "Class XII (CBSE)", institution: "Kendriya Vidyalaya, Lucknow", year: "2014 – 2016", grade: "94.6%", desc: "" }
-  ],
-  experience: [
-    { id: 1, title: "Senior UX Designer", company: "Flipkart", duration: "Mar 2022 – Present", location: "Bengaluru (Remote)", desc: "Led end-to-end redesign of checkout flow, reducing drop-off by 23%. Managed a team of 4 designers." },
-    { id: 2, title: "UX Designer", company: "Paytm", duration: "Jun 2020 – Feb 2022", location: "Noida", desc: "Designed wallet & payments UI reaching 50M+ users. Conducted 120+ user interviews." }
-  ],
-  skills: [
-    { id: 1, name: "Figma / Sketch", pct: 92 },
-    { id: 2, name: "User Research", pct: 85 },
-    { id: 3, name: "Prototyping", pct: 80 },
-    { id: 4, name: "HTML & CSS", pct: 70 },
-    { id: 5, name: "React (basics)", pct: 55 }
-  ],
-  languages: [
-    { id: 1, name: "Hindi", level: "Native", pct: 100 },
-    { id: 2, name: "English", level: "Fluent", pct: 88 },
-    { id: 3, name: "French", level: "Intermediate", pct: 50 }
-  ],
-  interests: ["UI/UX Design", "Travel", "Photography", "Open Source", "Cooking", "Yoga"]
+  education: [],
+  experience: [],
+  skills: [],
+  languages: [],
+  interests: []
 };
+let nextId = 1;
+let currentUser = null;
 
-let nextId = 100;
+// ── LOGIN ─────────────────────────────────────────────
+function doLogin() {
+  const username  = document.getElementById('loginUsername').value.trim();
+  const password  = document.getElementById('loginPassword').value.trim();
+  const fullname  = document.getElementById('loginFullname').value.trim();
+  const title     = document.getElementById('loginTitle').value.trim();
 
-// ── RENDER FUNCTIONS ──────────────────────────────────
+  if (!username || !password) {
+    document.getElementById('loginErr').style.display = 'block';
+    return;
+  }
+  document.getElementById('loginErr').style.display = 'none';
+
+  currentUser = {
+    username,
+    fullname: fullname || username,
+    title:    title || ''
+  };
+
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('profile-screen').style.display = 'block';
+
+  // Populate topbar
+  document.getElementById('topbarActions').innerHTML = `
+    <span class="user-chip">@${currentUser.username}</span>
+    <button class="btn-sm btn-outline" onclick="downloadProfile()">⬇ Download CV</button>
+    <button class="btn-sm btn-primary" onclick="showToast('Profile saved successfully!')">Save Profile</button>
+  `;
+
+  // Populate hero
+  document.getElementById('heroName').innerText  = currentUser.fullname;
+  document.getElementById('heroTitle').innerText = currentUser.title || 'Add your job title…';
+
+  updateProgress();
+}
+
+// Allow Enter key on login inputs
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('loginPassword').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+  document.getElementById('loginUsername').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('loginPassword').focus(); });
+  document.getElementById('loginFullname').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('loginTitle').focus(); });
+  document.getElementById('loginTitle').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+});
+
+// ── RENDER ────────────────────────────────────────────
 function renderAll() {
   renderEdu(); renderExp(); renderSkills(); renderLanguages(); renderInterests();
   updateCounts(); updateProgress();
 }
 
 function renderEdu() {
-  const c = document.getElementById('eduTimeline');
-  c.innerHTML = state.education.map(e => `
+  document.getElementById('eduTimeline').innerHTML = state.education.map(e => `
     <div class="timeline-item" id="edu-${e.id}">
       <div class="timeline-dot">🎓</div>
       <div class="timeline-content">
@@ -858,8 +1024,7 @@ function renderEdu() {
 }
 
 function renderExp() {
-  const c = document.getElementById('expTimeline');
-  c.innerHTML = state.experience.map(e => `
+  document.getElementById('expTimeline').innerHTML = state.experience.map(e => `
     <div class="timeline-item" id="exp-${e.id}">
       <div class="timeline-dot">💼</div>
       <div class="timeline-content">
@@ -875,14 +1040,16 @@ function renderExp() {
 }
 
 function renderSkills() {
-  const c = document.getElementById('skillsGrid');
-  c.innerHTML = state.skills.map(s => `
+  document.getElementById('skillsGrid').innerHTML = state.skills.map(s => `
     <div class="skill-item" id="skill-${s.id}">
       <div class="skill-row">
-        <span class="skill-name" contenteditable="true" spellcheck="false" onblur="updateSkillName(${s.id}, this.innerText)">${s.name}</span>
+        <span class="skill-name" contenteditable="true" spellcheck="false"
+          onblur="updateSkillName(${s.id}, this.innerText)">${s.name}</span>
         <span class="skill-pct" id="skillPct-${s.id}">${s.pct}%</span>
       </div>
-      <div class="skill-bar"><div class="skill-fill" id="skillFill-${s.id}" style="width:${s.pct}%"></div></div>
+      <div class="skill-bar">
+        <div class="skill-fill" id="skillFill-${s.id}" style="width:${s.pct}%"></div>
+      </div>
       <div class="skill-controls">
         <input type="range" class="skill-slider" min="0" max="100" value="${s.pct}"
           oninput="updateSkillPct(${s.id}, this.value)">
@@ -892,14 +1059,14 @@ function renderSkills() {
 }
 
 function renderLanguages() {
-  const c = document.getElementById('langList');
-  c.innerHTML = state.languages.map(l => `
+  document.getElementById('langList').innerHTML = state.languages.map(l => `
     <div class="lang-item" id="lang-${l.id}">
       <div class="lang-row">
         <span class="lang-name">${l.name}</span>
         <div style="display:flex;align-items:center;gap:.5rem;">
           <span class="lang-level">${l.level}</span>
-          <span class="action-chip" onclick="deleteEntry('languages', ${l.id})" style="padding:.15rem .4rem;font-size:.68rem;">✕</span>
+          <span class="action-chip" onclick="deleteEntry('languages', ${l.id})"
+            style="padding:.15rem .4rem;font-size:.68rem;">✕</span>
         </div>
       </div>
       <div class="lang-bar"><div class="lang-fill" style="width:${l.pct}%"></div></div>
@@ -907,46 +1074,66 @@ function renderLanguages() {
 }
 
 function renderInterests() {
-  const c = document.getElementById('interestsWrap');
-  c.innerHTML = state.interests.map((t, i) => `
-    <span class="interest-tag">${t}<span class="remove-tag" onclick="removeInterest(${i})">×</span></span>
-  `).join('');
+  document.getElementById('interestsWrap').innerHTML = state.interests.map((t, i) =>
+    `<span class="interest-tag">${t}<span class="remove-tag" onclick="removeInterest(${i})">×</span></span>`
+  ).join('');
 }
 
 // ── ADD ENTRIES ───────────────────────────────────────
 function addEducation() {
-  const deg = v('eduDegree'), inst = v('eduInstitution'), year = v('eduYear');
+  const deg = v('eduDegree'), inst = v('eduInstitution');
   if (!deg || !inst) return showToast('Please fill Degree and Institution');
-  state.education.unshift({ id: ++nextId, degree: deg, institution: inst, year, grade: v('eduGrade'), desc: v('eduDesc') });
+  state.education.unshift({
+    id: nextId++,
+    degree: deg,
+    institution: inst,
+    year: v('eduYear'),
+    grade: v('eduGrade'),
+    desc: v('eduDesc')
+  });
   ['eduDegree','eduInstitution','eduYear','eduGrade','eduDesc'].forEach(id => document.getElementById(id).value = '');
-  closeForm('eduForm'); renderAll(); showToast('Education added!');
+  closeForm('eduForm');
+  renderAll();
+  showToast('Education added!');
 }
 
 function addExperience() {
   const title = v('expTitle'), company = v('expCompany');
   if (!title || !company) return showToast('Please fill Title and Company');
-  state.experience.unshift({ id: ++nextId, title, company, duration: v('expDuration'), location: v('expLocation'), desc: v('expDesc') });
+  state.experience.unshift({
+    id: nextId++,
+    title,
+    company,
+    duration: v('expDuration'),
+    location: v('expLocation'),
+    desc: v('expDesc')
+  });
   ['expTitle','expCompany','expDuration','expLocation','expDesc'].forEach(id => document.getElementById(id).value = '');
-  closeForm('expForm'); renderAll(); showToast('Experience added!');
+  closeForm('expForm');
+  renderAll();
+  showToast('Experience added!');
 }
 
 function addSkill() {
   const name = v('skillNameInput');
   if (!name) return showToast('Enter a skill name');
-  state.skills.push({ id: ++nextId, name, pct: 60 });
+  state.skills.push({ id: nextId++, name, pct: 60 });
   document.getElementById('skillNameInput').value = '';
-  renderAll(); showToast('Skill added!');
+  renderAll();
+  showToast('Skill added!');
 }
 
 function addLanguage() {
   const name = v('langNameInput'), raw = v('langLevelInput');
   if (!name) return showToast('Enter a language name');
-  const match = raw.match(/(.+)\s\((\d+)\)/);
-  const level = match ? match[1] : raw;
-  const pct = match ? parseInt(match[2]) : 50;
-  state.languages.push({ id: ++nextId, name, level, pct });
+  const parts = raw.split('|');
+  const level = parts[0];
+  const pct   = parseInt(parts[1]) || 50;
+  state.languages.push({ id: nextId++, name, level, pct });
   document.getElementById('langNameInput').value = '';
-  closeForm('langForm'); renderAll(); showToast('Language added!');
+  closeForm('langForm');
+  renderAll();
+  showToast('Language added!');
 }
 
 function addInterest() {
@@ -954,12 +1141,14 @@ function addInterest() {
   if (!val) return;
   if (!state.interests.includes(val)) state.interests.push(val);
   document.getElementById('interestInput').value = '';
-  renderInterests(); updateProgress();
+  renderInterests();
+  updateProgress();
 }
 
 function removeInterest(i) {
   state.interests.splice(i, 1);
-  renderInterests(); updateProgress();
+  renderInterests();
+  updateProgress();
 }
 
 // ── UPDATE / DELETE ───────────────────────────────────
@@ -974,9 +1163,9 @@ function updateSkillPct(id, val) {
   if (!s) return;
   s.pct = parseInt(val);
   const fill = document.getElementById('skillFill-' + id);
-  const pct = document.getElementById('skillPct-' + id);
+  const pct  = document.getElementById('skillPct-' + id);
   if (fill) fill.style.width = val + '%';
-  if (pct) pct.innerText = val + '%';
+  if (pct)  pct.innerText   = val + '%';
 }
 
 function updateSkillName(id, name) {
@@ -986,10 +1175,10 @@ function updateSkillName(id, name) {
 
 // ── COUNTS + PROGRESS ─────────────────────────────────
 function updateCounts() {
-  document.getElementById('eduCount').innerText = state.education.length;
-  document.getElementById('expCount').innerText = state.experience.length;
+  document.getElementById('eduCount').innerText   = state.education.length;
+  document.getElementById('expCount').innerText   = state.experience.length;
   document.getElementById('skillCount').innerText = state.skills.length;
-  document.getElementById('langCount').innerText = state.languages.length;
+  document.getElementById('langCount').innerText  = state.languages.length;
 }
 
 function updateProgress() {
@@ -1003,11 +1192,11 @@ function updateProgress() {
     state.skills.length >= 3,
     state.languages.length > 0,
     state.interests.length > 0,
-    !!document.getElementById('profileImg')?.style?.display?.includes('block') || false
+    document.getElementById('profileImg')?.style?.display === 'block'
   ];
   const pct = Math.round((checks.filter(Boolean).length / checks.length) * 100);
-  document.getElementById('progressPct').innerText = pct + '%';
-  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').innerText     = pct + '%';
+  document.getElementById('progressFill').style.width  = pct + '%';
 }
 
 // ── PHOTO ─────────────────────────────────────────────
@@ -1042,13 +1231,10 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2500);
 }
 
-// ── DOWNLOAD (print as PDF tip) ───────────────────────
+// ── DOWNLOAD ──────────────────────────────────────────
 function downloadProfile() {
   showToast('Tip: Use Ctrl+P → Save as PDF to export!');
 }
-
-// ── INIT ──────────────────────────────────────────────
-renderAll();
 </script>
 </body>
 </html>
