@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Network — connect with your people</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-900:#0a1a33;
+    --navy-800:#0f2647;
+    --navy-700:#163566;
+    --navy-600:#1d4488;
+    --navy-500:#2a5cb8;
+    --navy-100:#e8eefb;
+    --navy-50:#f6f9fd;
+    --white:#ffffff;
+    --ink:#16233d;
+    --muted:#5c6b8a;
+    --border:#dfe6f5;
+    --shadow:0 14px 34px -16px rgba(10,26,51,0.22);
+    --radius-lg:18px;
+    --radius-md:12px;
+    --radius-sm:8px;
+    --font-display:'Sora',sans-serif;
+    --font-body:'Inter',sans-serif;
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background:var(--navy-50);
+    color:var(--ink);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{ font-family:var(--font-display); margin:0; color:var(--navy-900); }
+  p{ margin:0; }
+  button{ font-family:var(--font-body); cursor:pointer; }
+  ul{ margin:0; padding:0; list-style:none; }
+
+  :focus-visible{ outline:2px solid var(--navy-500); outline-offset:2px; border-radius:4px; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+  }
+
+  .wrap{ max-width:1120px; margin:0 auto; padding:0 24px; }
+
+  /* ---------- NAVBAR ---------- */
+  .navbar{
+    position:sticky; top:0; z-index:50;
+    background:var(--navy-900);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .navbar-inner{
+    max-width:1120px; margin:0 auto; padding:0 24px;
+    height:64px; display:flex; align-items:center; gap:24px;
+  }
+  .brand{ display:flex; align-items:center; gap:10px; flex-shrink:0; }
+  .brand svg{ width:30px; height:30px; }
+  .brand-name{ font-family:var(--font-display); font-weight:700; color:var(--white); font-size:18px; letter-spacing:-0.01em; }
+
+  .navsearch{
+    display:flex; align-items:center; gap:8px;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:8px; padding:8px 12px;
+    flex:1; max-width:340px;
+  }
+  .navsearch svg{ width:16px; height:16px; color:rgba(255,255,255,0.55); flex-shrink:0; }
+  .navsearch input{
+    background:transparent; border:none; outline:none;
+    color:var(--white); font-size:14px; width:100%;
+  }
+  .navsearch input::placeholder{ color:rgba(255,255,255,0.45); }
+
+  .navlinks{ display:flex; align-items:center; gap:22px; margin-left:auto; }
+  .navlink{
+    font-size:13px; font-weight:600; color:rgba(255,255,255,0.6);
+    padding:6px 2px; border-bottom:2px solid transparent;
+    cursor:pointer; white-space:nowrap;
+  }
+  .navlink:hover{ color:rgba(255,255,255,0.9); }
+  .navlink.active{ color:var(--white); border-bottom-color:var(--white); }
+
+  @media (max-width:760px){
+    .navsearch{ display:none; }
+    .navlinks{ gap:14px; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; overflow:hidden;
+    background:linear-gradient(160deg,var(--navy-900) 0%,var(--navy-700) 100%);
+    color:var(--white);
+  }
+  .hero-pattern{ position:absolute; inset:0; width:100%; height:100%; opacity:0.9; }
+  .hero-pattern svg{ width:100%; height:100%; display:block; }
+  .hero-pattern .arc{ stroke:#ffffff; stroke-opacity:0.16; stroke-width:1.4; fill:none; }
+  .hero-pattern .node{ fill:#ffffff; fill-opacity:0.55; }
+  .hero-pattern .node-pulse{ animation:pulse 2.8s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{ fill-opacity:0.5; } 50%{ fill-opacity:0.95; } }
+
+  .hero-inner{ position:relative; padding:64px 24px 48px; max-width:1120px; margin:0 auto; }
+  .eyebrow{
+    font-size:12px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase;
+    color:rgba(255,255,255,0.6); margin-bottom:14px;
+  }
+  .hero-title{ font-size:clamp(34px,5vw,52px); font-weight:800; letter-spacing:-0.02em; color:var(--white); }
+  .hero-subheading{
+    margin-top:10px; font-size:clamp(16px,2vw,19px); font-weight:500;
+    color:rgba(255,255,255,0.82); font-family:var(--font-body);
+  }
+
+  .stats-row{ display:flex; align-items:center; gap:22px; margin-top:36px; flex-wrap:wrap; }
+  .stat{ display:flex; flex-direction:column; gap:2px; }
+  .stat strong{ font-family:var(--font-display); font-size:22px; font-weight:700; color:var(--white); }
+  .stat span{ font-size:12.5px; color:rgba(255,255,255,0.6); }
+  .stat-divider{ width:1px; height:28px; background:rgba(255,255,255,0.18); }
+  @media (max-width:560px){ .stat-divider{ display:none; } .stats-row{ gap:18px 28px; } }
+
+  /* ---------- SECTIONS ---------- */
+  .section{ padding:44px 0; }
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between;
+    margin-bottom:20px; gap:12px;
+  }
+  .section-head h2{ font-size:21px; font-weight:700; letter-spacing:-0.01em; }
+  .see-all{
+    font-size:13.5px; font-weight:600; color:var(--navy-600);
+    white-space:nowrap; cursor:pointer;
+    background:none; border:none; padding:0; font-family:inherit;
+  }
+  .see-all:hover{ color:var(--navy-900); }
+
+  /* ---------- RECOMMENDATION CARDS ---------- */
+  .card-row-wrap{ position:relative; }
+  .card-row{
+    display:flex; gap:18px; overflow-x:auto; padding:4px 4px 14px 4px;
+    scroll-snap-type:x mandatory;
+  }
+  .card-row::-webkit-scrollbar{ height:6px; }
+  .card-row::-webkit-scrollbar-track{ background:transparent; }
+  .card-row::-webkit-scrollbar-thumb{ background:var(--navy-100); border-radius:6px; }
+  .card-row-wrap::after{
+    content:""; position:absolute; top:0; right:0; bottom:14px; width:48px;
+    background:linear-gradient(to right, rgba(246,249,253,0), var(--navy-50));
+    pointer-events:none;
+    transition:opacity .15s ease;
+  }
+  .card-row-wrap.is-expanded::after{ opacity:0; }
+  .card-row-wrap.is-expanded .card-row{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+    overflow-x:visible; scroll-snap-type:none; padding-bottom:4px;
+  }
+  .new-card{ animation:fadeIn .25s ease; }
+  @keyframes fadeIn{ from{ opacity:0; transform:translateY(4px); } to{ opacity:1; transform:translateY(0); } }
+
+  .rec-card{
+    position:relative; scroll-snap-align:start; flex:0 0 232px;
+    background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg);
+    padding:20px 16px 18px; text-align:center;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .rec-card:hover{ box-shadow:var(--shadow); transform:translateY(-2px); }
+  .rec-card.is-removing{ opacity:0; transform:scale(0.92); transition:opacity .22s ease, transform .22s ease; }
+
+  .dismiss-btn{
+    position:absolute; top:10px; right:10px; width:26px; height:26px;
+    border-radius:50%; border:none; background:var(--navy-50); color:var(--muted);
+    font-size:16px; line-height:1; display:flex; align-items:center; justify-content:center;
+  }
+  .dismiss-btn:hover{ background:var(--navy-100); color:var(--navy-900); }
+
+  .avatar{
+    width:64px; height:64px; border-radius:50%; margin:0 auto 12px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:700; font-size:18px; color:var(--white);
+    background:var(--navy-700);
+  }
+  .rec-card:nth-child(even) .avatar{ background:var(--navy-500); }
+
+  .rec-card h3{ font-size:15px; font-weight:700; }
+  .rec-card .headline{ font-size:12.5px; color:var(--muted); margin-top:4px; line-height:1.4; }
+  .rec-card .location{ font-size:12.5px; color:var(--navy-700); margin-top:8px; font-weight:600; }
+  .rec-card .mutual{ font-size:12px; color:var(--muted); margin-top:4px; }
+
+  .connect-btn{
+    margin-top:14px; width:100%; padding:9px 0; border-radius:999px;
+    border:1.5px solid var(--navy-600); background:transparent; color:var(--navy-700);
+    font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center; gap:6px;
+    transition:background .15s ease, color .15s ease;
+  }
+  .connect-btn:hover{ background:var(--navy-700); color:var(--white); }
+  .connect-btn[data-state="pending"]{
+    background:var(--navy-100); border-color:var(--navy-100); color:var(--navy-700); cursor:pointer;
+  }
+  .connect-btn[data-state="pending"]:hover{ background:var(--navy-700); border-color:var(--navy-700); color:var(--white); }
+  .connect-btn svg{ width:14px; height:14px; }
+
+  /* ---------- POST FEED ---------- */
+  .post-list{ display:flex; flex-direction:column; gap:16px; }
+  .post-card{
+    background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg);
+    padding:20px;
+  }
+  .post-header{ display:flex; gap:12px; align-items:flex-start; }
+  .post-header .avatar{ width:46px; height:46px; font-size:14px; margin:0; flex-shrink:0; }
+  .post-card:nth-child(even) .avatar{ background:var(--navy-500); }
+  .post-author h3{ font-size:14.5px; font-weight:700; }
+  .post-author .headline{ font-size:12.5px; color:var(--muted); margin-top:2px; }
+  .post-author .meta{ font-size:12px; color:var(--muted); margin-top:2px; }
+
+  .post-text{ margin-top:14px; font-size:14.5px; line-height:1.6; color:var(--ink); }
+
+  .post-actions{
+    display:flex; gap:6px; margin-top:16px; padding-top:12px; border-top:1px solid var(--border);
+  }
+  .action-btn{
+    flex:1; display:flex; align-items:center; justify-content:center; gap:7px;
+    background:transparent; border:none; border-radius:var(--radius-sm);
+    padding:9px 6px; font-size:13px; font-weight:600; color:var(--muted);
+    transition:background .15s ease, color .15s ease;
+  }
+  .action-btn:hover{ background:var(--navy-50); color:var(--navy-700); }
+  .action-btn svg{ width:18px; height:18px; }
+  .like-btn.is-liked{ color:var(--navy-700); }
+  .like-btn.is-liked svg{ fill:var(--navy-100); }
+
+  .comment-section{ margin-top:14px; padding-top:14px; border-top:1px solid var(--border); }
+  .comment-list{ display:flex; flex-direction:column; gap:8px; margin-bottom:10px; }
+  .comment-list li{ font-size:13px; color:var(--ink); background:var(--navy-50); padding:8px 12px; border-radius:var(--radius-md); }
+  .comment-list li strong{ color:var(--navy-900); margin-right:5px; }
+
+  .comment-input-row{ display:flex; gap:8px; }
+  .comment-input{
+    flex:1; border:1px solid var(--border); border-radius:999px; padding:9px 14px;
+    font-size:13.5px; outline:none; font-family:var(--font-body); color:var(--ink);
+  }
+  .comment-input:focus{ border-color:var(--navy-500); }
+  .comment-submit{
+    border:none; background:var(--navy-700); color:var(--white); font-weight:700;
+    font-size:13px; padding:0 18px; border-radius:999px;
+  }
+  .comment-submit:hover{ background:var(--navy-900); }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--navy-900); color:rgba(255,255,255,0.55);
+    text-align:center; padding:26px 24px; font-size:12.5px; margin-top:20px;
+  }
+  footer strong{ color:rgba(255,255,255,0.85); }
+</style>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="navbar-inner">
+    <div class="brand">
+      <svg viewBox="0 0 32 32"><circle cx="11" cy="16" r="6" fill="#ffffff" opacity="0.95"/><circle cx="21" cy="16" r="6" fill="#ffffff" opacity="0.5"/></svg>
+      <span class="brand-name">My Network</span>
+    </div>
+    <div class="navsearch">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" placeholder="Search people, companies, skills">
+    </div>
+    <nav class="navlinks">
+      <span class="navlink">Home</span>
+      <span class="navlink active">Network</span>
+      <span class="navlink">Jobs</span>
+      <span class="navlink">Messaging</span>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-pattern" aria-hidden="true">
+    <svg viewBox="0 0 1200 360" preserveAspectRatio="none">
+      <path class="arc" d="M70,300 Q380,40 660,260"/>
+      <path class="arc" d="M200,90 Q520,240 940,80"/>
+      <path class="arc" d="M120,200 Q560,30 1080,150"/>
+      <path class="arc" d="M400,300 Q760,360 1120,180"/>
+      <circle class="node" cx="70" cy="300" r="4"/>
+      <circle class="node node-pulse" cx="660" cy="260" r="5"/>
+      <circle class="node" cx="200" cy="90" r="4"/>
+      <circle class="node node-pulse" cx="940" cy="80" r="5"/>
+      <circle class="node" cx="120" cy="200" r="4"/>
+      <circle class="node" cx="1080" cy="150" r="4"/>
+      <circle class="node" cx="400" cy="300" r="4"/>
+      <circle class="node node-pulse" cx="1120" cy="180" r="5"/>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <p class="eyebrow">People · Worldwide</p>
+    <h1 class="hero-title">My Network</h1>
+    <p class="hero-subheading">connect with your people</p>
+    <div class="stats-row">
+      <div class="stat"><strong>1,248</strong><span>connections</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><strong>64</strong><span>countries</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><strong>18</strong><span>new this week</span></div>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <section class="section recommendations">
+    <div class="section-head">
+      <h2>People you may know, from around the world</h2>
+      <button type="button" class="see-all" id="see-all-btn">See all ›</button>
+    </div>
+    <div class="card-row-wrap">
+      <div class="card-row" id="recommend-row">
+
+        <article class="rec-card" data-card>
+          <button class="dismiss-btn" aria-label="Dismiss suggestion">×</button>
+          <div class="avatar">AC</div>
+          <h3>Amara Cole</h3>
+          <p class="headline">Product Designer · Lumen Studio</p>
+          <p class="location">🇿🇦 Cape Town, South Africa</p>
+          <p class="mutual">12 mutual connections</p>
+          <button class="connect-btn" data-state="connect">+ Connect</button>
+        </article>
+
+        <article class="rec-card" data-card>
+          <button class="dismiss-btn" aria-label="Dismiss suggestion">×</button>
+          <div class="avatar">HT</div>
+          <h3>Hiroshi Tanaka</h3>
+          <p class="headline">Senior Backend Engineer · Kaida Robotics</p>
+          <p class="location">🇯🇵 Osaka, Japan</p>
+          <p class="mutual">8 mutual connections</p>
+          <button class="connect-btn" data-state="connect">+ Connect</button>
+        </article>
+
+        <article class="rec-card" data-card>
+          <button class="dismiss-btn" aria-label="Dismiss suggestion">×</button>
+          <div class="avatar">VR</div>
+          <h3>Valentina Rossi</h3>
+          <p class="headline">Marketing Director · Aurora Foods</p>
+          <p class="location">🇮🇹 Milan, Italy</p>
+          <p class="mutual">5 mutual connections</p>
+          <button class="connect-btn" data-state="connect">+ Connect</button>
+        </article>
+
+        <article class="rec-card" data-card>
+          <button class="dismiss-btn" aria-label="Dismiss suggestion">×</button>
+          <div class="avatar">DF</div>
+          <h3>Diego Fernández</h3>
+          <p class="headline">Data Scientist · Andes Analytics</p>
+          <p class="location">🇨🇴 Bogotá, Colombia</p>
+          <p class="mutual">15 mutual connections</p>
+          <button class="connect-btn" data-state="connect">+ Connect</button>
+        </article>
+
+        <article class="rec-card" data-card>
+          <button class="dismiss-btn" aria-label="Dismiss suggestion">×</button>
+          <div class="avatar">PN</div>
+          <h3>Priya Nair</h3>
+          <p class="headline">UX Researcher · Bluepeak Labs</p>
+          <p class="location">🇮🇳 Bengaluru, India</p>
+          <p class="mutual">9 mutual connections</p>
+          <button class="connect-btn" data-state="connect">+ Connect</button>
+        </article>
+
+        <article class="rec-card" data-card>
+          <button class="dismiss-btn" aria-label="Dismiss suggestion">×</button>
+          <div class="avatar">LO</div>
+          <h3>Liam O'Connor</h3>
+          <p class="headline">Founder · Greenfield Ventures</p>
+          <p class="location">🇮🇪 Dublin, Ireland</p>
+          <p class="mutual">3 mutual connections</p>
+          <button class="connect-btn" data-state="connect">+ Connect</button>
+        </article>
+
+        <article class="rec-card" data-card>
+          <button class="dismiss-btn" aria-label="Dismiss suggestion">×</button>
+          <div class="avatar">ML</div>
+          <h3>Mei Lin</h3>
+          <p class="headline">Operations Lead · Pacific Trade Co.</p>
+          <p class="location">🇸🇬 Singapore</p>
+          <p class="mutual">21 mutual connections</p>
+          <button class="connect-btn" data-state="connect">+ Connect</button>
+        </article>
+
+        <article class="rec-card extra-card" data-card hidden>
+          <button class="dismiss-btn" aria-label="Dismiss suggestion">×</button>
+          <div class="avatar">FS</div>
+          <h3>Fatima Al-Sayed</h3>
+          <p class="headline">Cybersecurity Analyst · NileGuard</p>
+          <p class="location">🇪🇬 Cairo, Egypt</p>
+          <p class="mutual">7 mutual connections</p>
+          <button class="connect-btn" data-state="connect">+ Connect</button>
+        </article>
+
+        <article class="rec-card extra-card" data-card hidden>
+          <button class="dismiss-btn" aria-label="Dismiss suggestion">×</button>
+          <div class="avatar">LE</div>
+          <h3>Lucas Eriksson</h3>
+          <p class="headline">Renewable Energy Engineer · Nordvolt</p>
+          <p class="location">🇸🇪 Stockholm, Sweden</p>
+          <p class="mutual">4 mutual connections</p>
+          <button class="connect-btn" data-state="connect">+ Connect</button>
+        </article>
+
+        <article class="rec-card extra-card" data-card hidden>
+          <button class="dismiss-btn" aria-label="Dismiss suggestion">×</button>
+          <div class="avatar">NC</div>
+          <h3>Ngozi Chukwu</h3>
+          <p class="headline">Supply Chain Manager · Sankofa Logistics</p>
+          <p class="location">🇬🇭 Accra, Ghana</p>
+          <p class="mutual">11 mutual connections</p>
+          <button class="connect-btn" data-state="connect">+ Connect</button>
+        </article>
+
+        <article class="rec-card extra-card" data-card hidden>
+          <button class="dismiss-btn" aria-label="Dismiss suggestion">×</button>
+          <div class="avatar">MK</div>
+          <h3>Mateusz Kowalski</h3>
+          <p class="headline">Mobile App Developer · Polska Apps</p>
+          <p class="location">🇵🇱 Warsaw, Poland</p>
+          <p class="mutual">6 mutual connections</p>
+          <button class="connect-btn" data-state="connect">+ Connect</button>
+        </article>
+
+        <article class="rec-card extra-card" data-card hidden>
+          <button class="dismiss-btn" aria-label="Dismiss suggestion">×</button>
+          <div class="avatar">IM</div>
+          <h3>Isabella Martins</h3>
+          <p class="headline">Financial Analyst · Tagus Capital</p>
+          <p class="location">🇵🇹 Lisbon, Portugal</p>
+          <p class="mutual">14 mutual connections</p>
+          <button class="connect-btn" data-state="connect">+ Connect</button>
+        </article>
+
+        <article class="rec-card extra-card" data-card hidden>
+          <button class="dismiss-btn" aria-label="Dismiss suggestion">×</button>
+          <div class="avatar">NB</div>
+          <h3>Noah Bennett</h3>
+          <p class="headline">Sustainability Consultant · Kahu Advisory</p>
+          <p class="location">🇳🇿 Wellington, New Zealand</p>
+          <p class="mutual">2 mutual connections</p>
+          <button class="connect-btn" data-state="connect">+ Connect</button>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section feed">
+    <div class="section-head">
+      <h2>Updates from your network</h2>
+    </div>
+    <div class="post-list">
+
+      <article class="post-card" data-post>
+        <div class="post-header">
+          <div class="avatar">SC</div>
+          <div class="post-author">
+            <h3>Sarah Chen</h3>
+            <p class="headline">Engineering Manager · Nimbus Cloud</p>
+            <p class="meta">Toronto, Canada · 3h</p>
+          </div>
+        </div>
+        <p class="post-text">Our team just shipped a release built entirely across four time zones without a single blocked merge. Async stand-ups, written design docs, and a no-meeting Wednesday made the difference — distance stopped being the bottleneck once we stopped treating overlap hours as the only way to collaborate.</p>
+        <div class="post-actions">
+          <button class="action-btn like-btn" data-likes="48">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v10H4a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h3zm0 0 3.5-7a2 2 0 0 1 2 2v4h4.5a2 2 0 0 1 1.94 2.45l-1.5 6A2 2 0 0 1 15.5 20H7"/></svg>
+            <span class="count">48</span> Like
+          </button>
+          <button class="action-btn comment-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <span class="count">12</span> Comment
+          </button>
+          <button class="action-btn share-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg>
+            Share
+          </button>
+        </div>
+        <div class="comment-section" hidden>
+          <ul class="comment-list">
+            <li><strong>Carlos Méndez</strong> This is such a clean way to think about async work.</li>
+          </ul>
+          <div class="comment-input-row">
+            <input type="text" class="comment-input" placeholder="Add a comment…">
+            <button class="comment-submit">Post</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="post-card" data-post>
+        <div class="post-header">
+          <div class="avatar">CM</div>
+          <div class="post-author">
+            <h3>Carlos Méndez</h3>
+            <p class="headline">Product Marketing Lead · Helio Brands</p>
+            <p class="meta">Madrid, Spain · 7h</p>
+          </div>
+        </div>
+        <p class="post-text">Just got back from a three-day product marketing summit in Lisbon. The single biggest takeaway: teams that interview ten customers before writing a line of messaging consistently outperform teams that start from a blank doc. Customer language beats clever copy almost every time.</p>
+        <div class="post-actions">
+          <button class="action-btn like-btn" data-likes="63">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v10H4a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h3zm0 0 3.5-7a2 2 0 0 1 2 2v4h4.5a2 2 0 0 1 1.94 2.45l-1.5 6A2 2 0 0 1 15.5 20H7"/></svg>
+            <span class="count">63</span> Like
+          </button>
+          <button class="action-btn comment-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <span class="count">9</span> Comment
+          </button>
+          <button class="action-btn share-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg>
+            Share
+          </button>
+        </div>
+        <div class="comment-section" hidden>
+          <ul class="comment-list">
+            <li><strong>Sarah Chen</strong> Stealing this for our next launch.</li>
+          </ul>
+          <div class="comment-input-row">
+            <input type="text" class="comment-input" placeholder="Add a comment…">
+            <button class="comment-submit">Post</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="post-card" data-post>
+        <div class="post-header">
+          <div class="avatar">AB</div>
+          <div class="post-author">
+            <h3>Aisha Bello</h3>
+            <p class="headline">Founder · Bloom Naturals</p>
+            <p class="meta">Lagos, Nigeria · 1d</p>
+          </div>
+        </div>
+        <p class="post-text">Three years ago, Bloom Naturals was a kitchen-table experiment. Today we shipped our 50,000th order and opened our first regional warehouse. Grateful to every early customer who left feedback when the packaging was still held together with tape.</p>
+        <div class="post-actions">
+          <button class="action-btn like-btn" data-likes="214">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v10H4a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h3zm0 0 3.5-7a2 2 0 0 1 2 2v4h4.5a2 2 0 0 1 1.94 2.45l-1.5 6A2 2 0 0 1 15.5 20H7"/></svg>
+            <span class="count">214</span> Like
+          </button>
+          <button class="action-btn comment-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <span class="count">31</span> Comment
+          </button>
+          <button class="action-btn share-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg>
+            Share
+          </button>
+        </div>
+        <div class="comment-section" hidden>
+          <ul class="comment-list">
+            <li><strong>Diego Fernández</strong> Congratulations, well earned!</li>
+          </ul>
+          <div class="comment-input-row">
+            <input type="text" class="comment-input" placeholder="Add a comment…">
+            <button class="comment-submit">Post</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="post-card" data-post>
+        <div class="post-header">
+          <div class="avatar">JW</div>
+          <div class="post-author">
+            <h3>James Whitfield</h3>
+            <p class="headline">Senior Consultant · Harlow &amp; Partners</p>
+            <p class="meta">London, United Kingdom · 2d</p>
+          </div>
+        </div>
+        <p class="post-text">A mentee asked me what I'd change about my first five years of work. My answer: ask for feedback before you think you need it, not after a project goes sideways. The earlier the correction, the smaller the course change required.</p>
+        <div class="post-actions">
+          <button class="action-btn like-btn" data-likes="97">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v10H4a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h3zm0 0 3.5-7a2 2 0 0 1 2 2v4h4.5a2 2 0 0 1 1.94 2.45l-1.5 6A2 2 0 0 1 15.5 20H7"/></svg>
+            <span class="count">97</span> Like
+          </button>
+          <button class="action-btn comment-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <span class="count">22</span> Comment
+          </button>
+          <button class="action-btn share-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg>
+            Share
+          </button>
+        </div>
+        <div class="comment-section" hidden>
+          <ul class="comment-list">
+            <li><strong>Priya Nair</strong> Wish someone told me this earlier in my career.</li>
+          </ul>
+          <div class="comment-input-row">
+            <input type="text" class="comment-input" placeholder="Add a comment…">
+            <button class="comment-submit">Post</button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <strong>My Network</strong> · Built to help you connect with your people
+</footer>
+
+<script>
+  document.addEventListener('click', function(e){
+
+    // Toggle "See all" recommendations
+    var seeAllBtn = e.target.closest('#see-all-btn');
+    if(seeAllBtn){
+      var wrap = document.querySelector('.card-row-wrap');
+      var row = document.getElementById('recommend-row');
+      var extras = row.querySelectorAll('.extra-card');
+      var expanding = !wrap.classList.contains('is-expanded');
+      wrap.classList.toggle('is-expanded', expanding);
+      extras.forEach(function(card){
+        card.hidden = !expanding;
+        if(expanding){ card.classList.add('new-card'); }
+      });
+      seeAllBtn.textContent = expanding ? 'Show less ‹' : 'See all ›';
+      if(!expanding){ row.scrollTo({ left:0, behavior:'smooth' }); }
+      return;
+    }
+
+    // Dismiss a recommendation card
+    var dismiss = e.target.closest('.dismiss-btn');
+    if(dismiss){
+      var card = dismiss.closest('.rec-card');
+      card.classList.add('is-removing');
+      setTimeout(function(){ card.remove(); }, 220);
+      return;
+    }
+
+    // Toggle connect <-> pending
+    var connectBtn = e.target.closest('.connect-btn');
+    if(connectBtn){
+      if(connectBtn.dataset.state === 'connect'){
+        connectBtn.dataset.state = 'pending';
+        connectBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Pending';
+      } else {
+        connectBtn.dataset.state = 'connect';
+        connectBtn.innerHTML = '+ Connect';
+      }
+      return;
+    }
+
+    // Toggle like
+    var likeBtn = e.target.closest('.like-btn');
+    if(likeBtn){
+      var countEl = likeBtn.querySelector('.count');
+      var base = parseInt(likeBtn.dataset.likes, 10);
+      var liked = likeBtn.classList.toggle('is-liked');
+      countEl.textContent = liked ? base + 1 : base;
+      return;
+    }
+
+    // Toggle comment section
+    var commentBtn = e.target.closest('.comment-btn');
+    if(commentBtn){
+      var section = commentBtn.closest('.post-card').querySelector('.comment-section');
+      section.hidden = !section.hidden;
+      return;
+    }
+
+    // Submit a new comment
+    var submitBtn = e.target.closest('.comment-submit');
+    if(submitBtn){
+      var postCard = submitBtn.closest('.post-card');
+      var input = postCard.querySelector('.comment-input');
+      addComment(postCard, input);
+      return;
+    }
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' && e.target.classList.contains('comment-input')){
+      var postCard = e.target.closest('.post-card');
+      addComment(postCard, e.target);
+    }
+  });
+
+  function addComment(postCard, input){
+    var text = input.value.trim();
+    if(!text) return;
+    var li = document.createElement('li');
+    li.innerHTML = '<strong>You</strong> ' + text.replace(/</g,'&lt;');
+    postCard.querySelector('.comment-list').appendChild(li);
+    input.value = '';
+
+    var commentCount = postCard.querySelector('.comment-btn .count');
+    commentCount.textContent = parseInt(commentCount.textContent, 10) + 1;
+  }
+</script>
+
+</body>
+</html>
