@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Companies Hiring Now | CareerBoard</title>
+<style>
+  :root{
+    --navy-900:#0a1a3c;
+    --navy-800:#0f2557;
+    --navy-700:#16336f;
+    --navy-600:#1d4191;
+    --navy-accent:#3b6cf6;
+    --white:#ffffff;
+    --off-white:#f4f6fb;
+    --grey-text:#5a6478;
+    --border:#e1e6f0;
+    --success:#1f9d55;
+    --shadow: 0 4px 18px rgba(10,26,60,0.08);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background:var(--off-white);
+    color:var(--navy-900);
+    line-height:1.5;
+  }
+
+  /* ===== Header ===== */
+  header{
+    background:linear-gradient(135deg, var(--navy-900), var(--navy-700));
+    color:var(--white);
+    padding:28px 6%;
+    box-shadow:var(--shadow);
+    position:sticky;
+    top:0;
+    z-index:100;
+  }
+  .header-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .logo{
+    font-size:1.5rem;
+    font-weight:700;
+    letter-spacing:0.5px;
+  }
+  .logo span{ color:#9fc0ff; }
+  header p.tagline{
+    font-size:0.9rem;
+    color:#c7d4f0;
+    margin-top:4px;
+  }
+
+  .controls{
+    margin-top:22px;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  #searchInput{
+    flex:1;
+    min-width:220px;
+    padding:12px 16px;
+    border-radius:8px;
+    border:none;
+    font-size:0.95rem;
+    outline:none;
+  }
+  .filter-btns{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .filter-btn{
+    background:rgba(255,255,255,0.08);
+    color:var(--white);
+    border:1px solid rgba(255,255,255,0.3);
+    padding:10px 18px;
+    border-radius:20px;
+    cursor:pointer;
+    font-size:0.85rem;
+    transition:all 0.2s ease;
+    white-space:nowrap;
+  }
+  .filter-btn:hover{ background:rgba(255,255,255,0.18); }
+  .filter-btn.active{
+    background:var(--white);
+    color:var(--navy-900);
+    font-weight:600;
+    border-color:var(--white);
+  }
+
+  /* ===== Stats Bar ===== */
+  .stats-bar{
+    display:flex;
+    justify-content:center;
+    gap:48px;
+    flex-wrap:wrap;
+    background:var(--white);
+    padding:20px 6%;
+    border-bottom:1px solid var(--border);
+  }
+  .stat{
+    text-align:center;
+  }
+  .stat .num{
+    font-size:1.6rem;
+    font-weight:700;
+    color:var(--navy-700);
+  }
+  .stat .label{
+    font-size:0.8rem;
+    color:var(--grey-text);
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+  }
+
+  /* ===== Main ===== */
+  main{
+    max-width:920px;
+    margin:0 auto;
+    padding:36px 6% 80px;
+  }
+
+  .section-heading{
+    font-size:1.1rem;
+    color:var(--navy-800);
+    margin:34px 0 16px;
+    padding-left:12px;
+    border-left:4px solid var(--navy-accent);
+    font-weight:700;
+  }
+
+  .card-list{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+
+  /* ===== Job/Post Card ===== */
+  .card{
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:22px 24px;
+    box-shadow:var(--shadow);
+    transition:transform 0.18s ease, box-shadow 0.18s ease;
+    position:relative;
+    overflow:hidden;
+  }
+  .card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 26px rgba(10,26,60,0.13);
+  }
+  .card::before{
+    content:"";
+    position:absolute;
+    left:0; top:0; bottom:0;
+    width:5px;
+    background:var(--navy-accent);
+  }
+  .card.internship::before{ background:#f6a93b; }
+  .card.post::before{ background:var(--success); }
+
+  .card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .company-block{
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .logo-circle{
+    width:48px; height:48px;
+    border-radius:10px;
+    background:var(--navy-900);
+    color:var(--white);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    font-size:1rem;
+    flex-shrink:0;
+  }
+  .role-title{
+    font-size:1.05rem;
+    font-weight:700;
+    color:var(--navy-900);
+  }
+  .company-name{
+    font-size:0.88rem;
+    color:var(--grey-text);
+    margin-top:2px;
+  }
+
+  .tag{
+    font-size:0.72rem;
+    font-weight:700;
+    text-transform:uppercase;
+    padding:5px 10px;
+    border-radius:14px;
+    letter-spacing:0.4px;
+    white-space:nowrap;
+  }
+  .tag.full-time{ background:#e6edff; color:var(--navy-700); }
+  .tag.internship{ background:#fff3e0; color:#b9740a; }
+  .tag.post{ background:#e6f7ec; color:var(--success); }
+
+  .card-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    margin:14px 0 10px;
+    font-size:0.83rem;
+    color:var(--grey-text);
+  }
+  .card-meta span{
+    display:flex;
+    align-items:center;
+    gap:5px;
+  }
+
+  .card-desc{
+    font-size:0.9rem;
+    color:#3a4256;
+    margin-bottom:14px;
+  }
+
+  .skill-chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:16px;
+  }
+  .chip{
+    background:var(--off-white);
+    border:1px solid var(--border);
+    color:var(--navy-700);
+    font-size:0.76rem;
+    padding:5px 11px;
+    border-radius:14px;
+  }
+
+  .card-footer{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .posted-time{
+    font-size:0.78rem;
+    color:#8993a8;
+  }
+  .apply-btn{
+    background:var(--navy-800);
+    color:var(--white);
+    border:none;
+    padding:10px 22px;
+    border-radius:7px;
+    font-size:0.85rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:background 0.2s ease;
+  }
+  .apply-btn:hover{ background:var(--navy-600); }
+  .apply-btn.registered{
+    background:var(--success);
+    cursor:default;
+  }
+
+  .no-results{
+    text-align:center;
+    color:var(--grey-text);
+    padding:60px 0;
+    font-size:0.95rem;
+    display:none;
+  }
+
+  /* ===== Modal ===== */
+  .modal-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(10,20,45,0.55);
+    align-items:center;
+    justify-content:center;
+    z-index:1000;
+    padding:20px;
+  }
+  .modal-overlay.show{ display:flex; }
+  .modal{
+    background:var(--white);
+    border-radius:14px;
+    max-width:430px;
+    width:100%;
+    padding:30px;
+    position:relative;
+    box-shadow:0 20px 50px rgba(0,0,0,0.25);
+    animation:pop 0.2s ease;
+  }
+  @keyframes pop{
+    from{ transform:scale(0.92); opacity:0; }
+    to{ transform:scale(1); opacity:1; }
+  }
+  .modal h3{
+    color:var(--navy-900);
+    margin-bottom:4px;
+    font-size:1.2rem;
+  }
+  .modal .modal-sub{
+    color:var(--grey-text);
+    font-size:0.85rem;
+    margin-bottom:20px;
+  }
+  .close-btn{
+    position:absolute;
+    top:16px; right:18px;
+    background:none;
+    border:none;
+    font-size:1.3rem;
+    cursor:pointer;
+    color:var(--grey-text);
+  }
+  .form-group{ margin-bottom:14px; }
+  .form-group label{
+    display:block;
+    font-size:0.8rem;
+    color:var(--navy-800);
+    margin-bottom:6px;
+    font-weight:600;
+  }
+  .form-group input, .form-group textarea{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid var(--border);
+    border-radius:7px;
+    font-size:0.88rem;
+    font-family:inherit;
+    outline:none;
+  }
+  .form-group input:focus, .form-group textarea:focus{
+    border-color:var(--navy-accent);
+  }
+  .submit-btn{
+    width:100%;
+    background:var(--navy-800);
+    color:var(--white);
+    border:none;
+    padding:12px;
+    border-radius:7px;
+    font-weight:600;
+    cursor:pointer;
+    margin-top:6px;
+  }
+  .submit-btn:hover{ background:var(--navy-600); }
+
+  .success-state{
+    text-align:center;
+    padding:10px 0 4px;
+  }
+  .success-state .check{
+    width:60px; height:60px;
+    background:#e6f7ec;
+    color:var(--success);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.8rem;
+    margin:0 auto 16px;
+  }
+  .success-state h3{ color:var(--navy-900); }
+  .success-state p{ color:var(--grey-text); font-size:0.88rem; margin-top:6px; }
+
+  footer{
+    text-align:center;
+    padding:24px;
+    font-size:0.8rem;
+    color:var(--grey-text);
+    border-top:1px solid var(--border);
+    background:var(--white);
+  }
+
+  @media(max-width:600px){
+    .stats-bar{ gap:24px; }
+    .card{ padding:18px; }
+    header{ padding:22px 5%; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div>
+      <div class="logo">Job<span>Hub</span></div>
+      <p class="tagline">Live openings, internships &amp; company announcements</p>
+    </div>
+  </div>
+
+  <div class="controls">
+    <input type="text" id="searchInput" placeholder="Search by company, role, or skill...">
+    <div class="filter-btns" id="filterBtns">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="full-time">Jobs</button>
+      <button class="filter-btn" data-filter="internship">Internships</button>
+      <button class="filter-btn" data-filter="post">Posts</button>
+    </div>
+  </div>
+</header>
+
+<div class="stats-bar" id="statsBar"></div>
+
+<main>
+  <div class="section-heading">Currently Hiring</div>
+  <div class="card-list" id="cardList"></div>
+  <div class="no-results" id="noResults">No matching openings found. Try a different search or filter.</div>
+</main>
+
+<footer>&copy; 2026 CareerBoard &mdash; Built for job seekers, by job seekers.</footer>
+
+<!-- Apply / Register Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<script>
+  const listings = [
+    {
+      id: 1,
+      type: "full-time",
+      company: "Samsung",
+      initials: "SS",
+      role: "Frontend Engineer (React)",
+      location: "Bengaluru, India",
+      mode: "On-site",
+      experience: "2-4 yrs",
+      desc: "Build and maintain customer-facing dashboards for Samsung's IoT ecosystem using React, TypeScript and modern state management.",
+      skills: ["React", "TypeScript", "Redux", "REST APIs"],
+      posted: "2 days ago"
+    },
+    {
+      id: 2,
+      type: "internship",
+      company: "Samsung",
+      initials: "SS",
+      role: "Samsung PRISM Program — Registration Open",
+      location: "Pan India (Remote/Hybrid)",
+      mode: "6 Months",
+      experience: "Final/Pre-final year students",
+      desc: "Samsung PRISM (Partnership in Research and Innovation for SMART Technology) connects students with real industry research problems. Registration is now open for the upcoming cohort — work directly with Samsung R&D mentors on live projects.",
+      skills: ["Research", "Problem Solving", "Any Engineering Branch"],
+      posted: "5 hours ago",
+      isPost: true
+    },
+    {
+      id: 3,
+      type: "full-time",
+      company: "Infosys",
+      initials: "IN",
+      role: "Software Engineer",
+      location: "Pune, India",
+      mode: "Hybrid",
+      experience: "0-2 yrs",
+      desc: "Join Infosys's enterprise applications team to design scalable backend services for global clients across BFSI and retail domains.",
+      skills: ["Java", "Spring Boot", "SQL", "Microservices"],
+      posted: "1 day ago"
+    },
+    {
+      id: 4,
+      type: "internship",
+      company: "Infosys",
+      initials: "IN",
+      role: "InStep Global Internship Program",
+      location: "Multiple Global Locations",
+      mode: "10-12 Weeks",
+      experience: "Undergraduate/Postgraduate students",
+      desc: "Infosys InStep offers a global internship experience across technology, consulting, and research tracks. Applications for the next intake are now being accepted.",
+      skills: ["Communication", "Analytical Thinking", "Domain Knowledge"],
+      posted: "1 day ago",
+      isPost: true
+    },
+    {
+      id: 5,
+      type: "full-time",
+      company: "Google",
+      initials: "G",
+      role: "Associate Product Manager",
+      location: "Hyderabad, India",
+      mode: "On-site",
+      experience: "1-3 yrs",
+      desc: "Drive product strategy and roadmap for one of Google's consumer-facing products, partnering closely with engineering and design teams.",
+      skills: ["Product Strategy", "Data Analysis", "Communication"],
+      posted: "3 days ago"
+    },
+    {
+      id: 6,
+      type: "internship",
+      company: "Google",
+      initials: "G",
+      role: "STEP Internship Program",
+      location: "Bengaluru, India",
+      mode: "10-12 Weeks",
+      experience: "1st/2nd year students",
+      desc: "Google's Student Training in Engineering Program (STEP) is designed for early-in-college students with a passion for computer science. Applications open now.",
+      skills: ["C++", "Python", "DSA Basics"],
+      posted: "6 hours ago",
+      isPost: true
+    },
+    {
+      id: 7,
+      type: "full-time",
+      company: "TCS",
+      initials: "TCS",
+      role: "Cloud Engineer (AWS)",
+      location: "Chennai, India",
+      mode: "Hybrid",
+      experience: "2-5 yrs",
+      desc: "Architect and deploy cloud-native solutions on AWS for enterprise clients, with a focus on cost optimization and scalability.",
+      skills: ["AWS", "Terraform", "Docker", "Kubernetes"],
+      posted: "4 days ago"
+    },
+    {
+      id: 8,
+      type: "internship",
+      company: "Microsoft",
+      initials: "MS",
+      role: "Microsoft Engage Mentorship Program",
+      location: "Remote",
+      mode: "6-8 Weeks",
+      experience: "Pre-final/Final year students",
+      desc: "Microsoft Engage pairs students with Microsoft engineers for mentorship and hands-on project building. Registrations for the new batch are live now.",
+      skills: ["Coding", "Project Building", "Mentorship"],
+      posted: "8 hours ago",
+      isPost: true
+    },
+    {
+      id: 9,
+      type: "full-time",
+      company: "Amazon",
+      initials: "AMZ",
+      role: "SDE-1",
+      location: "Bengaluru, India",
+      mode: "On-site",
+      experience: "0-2 yrs",
+      desc: "Design and build highly scalable systems that power Amazon's e-commerce and logistics platforms.",
+      skills: ["Java/C++", "DSA", "System Design"],
+      posted: "5 days ago"
+    },
+    {
+      id: 10,
+      type: "internship",
+      company: "Adobe",
+      initials: "AD",
+      role: "Adobe Summer Internship 2026",
+      location: "Noida, India",
+      mode: "Summer (10 Weeks)",
+      experience: "Final year students",
+      desc: "Work alongside Adobe's product engineering teams on creative cloud and digital experience tools. Online assessment registrations close soon.",
+      skills: ["Problem Solving", "OOP", "Web Development"],
+      posted: "12 hours ago",
+      isPost: true
+    }
+  ];
+
+  const cardList = document.getElementById("cardList");
+  const noResults = document.getElementById("noResults");
+  const searchInput = document.getElementById("searchInput");
+  const filterBtns = document.querySelectorAll(".filter-btn");
+  const statsBar = document.getElementById("statsBar");
+
+  let activeFilter = "all";
+  let registeredIds = new Set();
+
+  function renderStats(){
+    const jobs = listings.filter(l => l.type === "full-time").length;
+    const interns = listings.filter(l => l.type === "internship").length;
+    const companies = new Set(listings.map(l => l.company)).size;
+    statsBar.innerHTML = `
+      <div class="stat"><div class="num">${companies}</div><div class="label">Companies</div></div>
+      <div class="stat"><div class="num">${jobs}</div><div class="label">Open Roles</div></div>
+      <div class="stat"><div class="num">${interns}</div><div class="label">Internship Posts</div></div>
+    `;
+  }
+
+  function matchesFilter(item){
+    if(activeFilter === "all") return true;
+    if(activeFilter === "post") return item.isPost;
+    return item.type === activeFilter;
+  }
+
+  function matchesSearch(item, query){
+    if(!query) return true;
+    const q = query.toLowerCase();
+    return (
+      item.company.toLowerCase().includes(q) ||
+      item.role.toLowerCase().includes(q) ||
+      item.skills.some(s => s.toLowerCase().includes(q))
+    );
+  }
+
+  function render(){
+    const query = searchInput.value.trim();
+    const filtered = listings.filter(item => matchesFilter(item) && matchesSearch(item, query));
+
+    cardList.innerHTML = "";
+    noResults.style.display = filtered.length ? "none" : "block";
+
+    filtered.forEach(item => {
+      const card = document.createElement("div");
+      const cardTypeClass = item.isPost ? "post" : item.type;
+      card.className = `card ${cardTypeClass}`;
+
+      const tagLabel = item.isPost ? "Post" : (item.type === "internship" ? "Internship" : "Full-time");
+      const tagClass = item.isPost ? "post" : item.type;
+
+      const isRegistered = registeredIds.has(item.id);
+      const btnLabel = isRegistered
+        ? "✓ " + (item.isPost ? "Registered" : "Applied")
+        : (item.isPost ? "Register Now" : "Apply Now");
+
+      card.innerHTML = `
+        <div class="card-top">
+          <div class="company-block">
+            <div class="logo-circle">${item.initials}</div>
+            <div>
+              <div class="role-title">${item.role}</div>
+              <div class="company-name">${item.company}</div>
+            </div>
+          </div>
+          <span class="tag ${tagClass}">${tagLabel}</span>
+        </div>
+
+        <div class="card-meta">
+          <span>📍 ${item.location}</span>
+          <span>🕒 ${item.mode}</span>
+          <span>🎓 ${item.experience}</span>
+        </div>
+
+        <div class="card-desc">${item.desc}</div>
+
+        <div class="skill-chips">
+          ${item.skills.map(s => `<span class="chip">${s}</span>`).join("")}
+        </div>
+
+        <div class="card-footer">
+          <span class="posted-time">Posted ${item.posted}</span>
+          <button class="apply-btn ${isRegistered ? 'registered' : ''}" data-id="${item.id}">${btnLabel}</button>
+        </div>
+      `;
+      cardList.appendChild(card);
+    });
+
+    document.querySelectorAll(".apply-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = parseInt(btn.dataset.id);
+        if(!registeredIds.has(id)) openModal(id);
+      });
+    });
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      filterBtns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      activeFilter = btn.dataset.filter;
+      render();
+    });
+  });
+
+  searchInput.addEventListener("input", render);
+
+  // ===== Modal logic =====
+  const modalOverlay = document.getElementById("modalOverlay");
+  const modalContent = document.getElementById("modalContent");
+
+  function openModal(id){
+    const item = listings.find(l => l.id === id);
+    const verb = item.isPost ? "Register" : "Apply";
+
+    modalContent.innerHTML = `
+      <button class="close-btn" id="closeModal">&times;</button>
+      <h3>${verb} — ${item.role}</h3>
+      <div class="modal-sub">${item.company} · ${item.location}</div>
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="fName" placeholder="Enter your full name" required>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="fEmail" placeholder="you@example.com" required>
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" id="fPhone" placeholder="+91 9XXXXXXXXX" required>
+      </div>
+      <div class="form-group">
+        <label>${item.isPost ? "Why do you want to join?" : "Why are you a good fit?"}</label>
+        <textarea id="fMsg" rows="3" placeholder="Tell us briefly..."></textarea>
+      </div>
+      <button class="submit-btn" id="submitForm">${verb}</button>
+    `;
+
+    modalOverlay.classList.add("show");
+    document.getElementById("closeModal").addEventListener("click", closeModal);
+    document.getElementById("submitForm").addEventListener("click", () => submitForm(item, verb));
+  }
+
+  function submitForm(item, verb){
+    const name = document.getElementById("fName").value.trim();
+    const email = document.getElementById("fEmail").value.trim();
+    const phone = document.getElementById("fPhone").value.trim();
+
+    if(!name || !email || !phone){
+      alert("Please fill in your name, email and phone number.");
+      return;
+    }
+
+    registeredIds.add(item.id);
+
+    modalContent.innerHTML = `
+      <button class="close-btn" id="closeModal">&times;</button>
+      <div class="success-state">
+        <div class="check">✓</div>
+        <h3>${verb === "Register" ? "Registered" : "Application Sent"}!</h3>
+        <p>Your ${verb.toLowerCase()} for <strong>${item.role}</strong> at ${item.company} was received.<br>We'll reach out to ${email} with next steps.</p>
+      </div>
+    `;
+    document.getElementById("closeModal").addEventListener("click", () => {
+      closeModal();
+      render();
+    });
+  }
+
+  function closeModal(){
+    modalOverlay.classList.remove("show");
+  }
+  modalOverlay.addEventListener("click", (e) => {
+    if(e.target === modalOverlay) closeModal();
+  });
+  document.addEventListener("keydown", (e) => {
+    if(e.key === "Escape") closeModal();
+  });
+
+  renderStats();
+  render();
+</script>
+
+</body>
+</html>
