@@ -6,4 +6,4 @@ The HTML Technologies used in the pages..home.html , login.html and profile.html
 The profile page is initiatly made of a dummy name AANYA SHARMA.
 In jobs.html do a change that when on apply button it should open to a new page "application form" which would ask to fill in on the details and then all the registry and click on the "register" button.
 All the pages are connected to each other now.
-
+FRONTEND ALMOST COMPLETED...BACKEND TO BE SETUP
