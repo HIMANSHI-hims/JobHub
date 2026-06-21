@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JobHub</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:white;
+}
+
+/* NAVBAR */
+
+nav{
+    background:#0a1628;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 8%;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.logo{
+    color:#ffffff;
+    font-size:30px;
+    font-weight:bold;
+    letter-spacing:1px;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:30px;
+}
+
+nav ul li a{
+    text-decoration:none;
+    color:rgba(255,255,255,0.82);
+    font-size:16px;
+    transition: color 0.2s;
+}
+
+nav ul li a:hover{
+    color:#ffffff;
+}
+
+.login-btn{
+    padding:10px 20px;
+    border: 2px solid #ffffff;
+    border-radius:5px;
+    background: transparent;
+    color:#ffffff;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:15px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.login-btn:hover{
+    background:#ffffff;
+    color:#0a1628;
+}
+.login-btn a {
+    color: white;
+    text-decoration: none;
+}
+.login-btn:hover a {
+    color: #0a1628;
+}
+
+/* PROFILE CHIP (shown after login, replaces login-btn) */
+
+#authSection{
+    position:relative;
+}
+
+.profile-chip{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:6px 16px 6px 6px;
+    border:1.5px solid rgba(255,255,255,0.25);
+    border-radius:30px;
+    background:rgba(255,255,255,0.06);
+    cursor:pointer;
+    transition: background 0.2s, border 0.2s;
+}
+
+.profile-chip:hover{
+    background:rgba(255,255,255,0.12);
+    border-color:rgba(255,255,255,0.4);
+}
+
+.avatar-circle{
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    background:linear-gradient(135deg, #2f5fa3, #163055);
+    color:#ffffff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    font-size:14px;
+    flex-shrink:0;
+}
+
+.profile-chip span{
+    color:#ffffff;
+    font-size:15px;
+    font-weight:600;
+    white-space:nowrap;
+}
+
+.chip-caret{
+    color:rgba(255,255,255,0.6);
+    font-size:11px;
+    margin-left:2px;
+}
+
+.profile-dropdown{
+    position:absolute;
+    top:calc(100% + 12px);
+    right:0;
+    width:200px;
+    background:#ffffff;
+    border-radius:10px;
+    box-shadow: 0 10px 30px rgba(10,22,40,0.25);
+    overflow:hidden;
+    display:none;
+    z-index:50;
+}
+
+.profile-dropdown.open{
+    display:block;
+}
+
+.profile-dropdown a,
+.profile-dropdown button{
+    display:block;
+    width:100%;
+    text-align:left;
+    padding:13px 18px;
+    color:#0a1628;
+    text-decoration:none;
+    font-size:14.5px;
+    border:none;
+    background:none;
+    cursor:pointer;
+    font-family:inherit;
+    transition: background 0.15s;
+}
+
+.profile-dropdown a:hover,
+.profile-dropdown button:hover{
+    background:#f4f7fb;
+}
+
+.profile-dropdown .logout-option{
+    color:#b3261e;
+    border-top:1px solid #eef1f5;
+}
+
+/* HERO SECTION */
+
+.hero{
+    background: linear-gradient(135deg, #0a1628 0%, #163055 60%, #1a3d6e 100%);
+    color:white;
+    text-align:center;
+    padding:80px 20px 120px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before{
+    content:'';
+    position:absolute;
+    top:-80px; right:-80px;
+    width:340px; height:340px;
+    border-radius:50%;
+    background: rgba(255,255,255,0.04);
+    pointer-events:none;
+}
+
+.hero::after{
+    content:'';
+    position:absolute;
+    bottom:-100px; left:-60px;
+    width:280px; height:280px;
+    border-radius:50%;
+    background: rgba(255,255,255,0.03);
+    pointer-events:none;
+}
+
+.hero h1{
+    font-size:55px;
+    margin-bottom:20px;
+    color:#ffffff;
+    position:relative;
+}
+
+.hero p{
+    font-size:20px;
+    margin-bottom:40px;
+    color:rgba(255,255,255,0.80);
+    position:relative;
+}
+
+.search-container{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:15px;
+    position:relative;
+}
+
+.search-container input{
+    width:300px;
+    padding:15px;
+    border: 1.5px solid rgba(255,255,255,0.25);
+    border-radius:8px;
+    font-size:16px;
+    background: rgba(255,255,255,0.10);
+    color:#ffffff;
+    outline:none;
+    transition: border 0.2s, background 0.2s;
+}
+
+.search-container input::placeholder{
+    color:rgba(255,255,255,0.55);
+}
+
+.search-container input:focus{
+    border-color: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.16);
+}
+
+.search-container button{
+    padding:15px 35px;
+    background:#ffffff;
+    color:#0a1628;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 18px rgba(10,22,40,0.18);
+}
+
+.search-container button:hover{
+    background:#e8edf5;
+    box-shadow: 0 6px 22px rgba(10,22,40,0.28);
+}
+
+/* FEATURES */
+
+.features{
+    background:#f4f7fb;
+    padding:80px 8%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.section-title h2{
+    font-size:38px;
+    color:#0a1628;
+}
+
+.cards{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+}
+
+.card{
+    width:300px;
+    background:#ffffff;
+    padding:30px;
+    border-radius:12px;
+    box-shadow: 0 4px 20px rgba(10,22,40,0.09);
+    text-align:center;
+    border-top: 3px solid #163055;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 8px 28px rgba(10,22,40,0.14);
+}
+
+.card h3{
+    color:#0a1628;
+    margin-bottom:15px;
+    font-size:19px;
+}
+
+.card p{
+    color:#4a5568;
+    line-height:1.6;
+}
+
+/* JOB SECTION */
+
+.jobs{
+    padding:70px 8% 80px;
+    background:#ffffff;
+}
+
+.jobs h2{
+    text-align:center;
+    color:#0a1628;
+    margin-bottom:40px;
+    font-size:38px;
+}
+
+.job-card{
+    background:#ffffff;
+    padding:25px;
+    border-radius:10px;
+    box-shadow: 0 3px 14px rgba(10,22,40,0.09);
+    margin-bottom:20px;
+    border-left: 4px solid #163055;
+    transition: box-shadow 0.2s;
+}
+
+.job-card:hover{
+    box-shadow: 0 6px 22px rgba(10,22,40,0.14);
+}
+
+.job-card h3{
+    color:#0a1628;
+    margin-bottom:10px;
+    font-size:20px;
+}
+
+.job-card p{
+    color:#4a5568;
+    margin-bottom:8px;
+    font-size:15px;
+}
+
+.view-btn{
+    margin-top:10px;
+    padding:10px 20px;
+    border: 2px solid #163055;
+    background:#163055;
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:600;
+    transition: background 0.2s, color 0.2s;
+}
+
+.view-btn:hover{
+    background:#0a1628;
+    border-color:#0a1628;
+}
+
+/* FOOTER */
+
+footer{
+    background:#0a1628;
+    color:rgba(255,255,255,0.75);
+    text-align:center;
+    padding:25px;
+    font-size:14px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">JobHub</div>
+
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="jobs.html">Jobs</a></li>
+        <li><a href="companies.html">Companies</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="network.html">My Network</a></li>
+    </ul>
+
+    <!-- This section now switches between Login button and Profile chip -->
+    <div id="authSection"></div>
+</nav>
+
+<section class="hero">
+
+    <h1>Find Jobs From Every Platform</h1>
+
+    <p>
+        One search. Thousands of opportunities.
+        Aggregated from multiple job websites.
+    </p>
+
+    <div class="search-container">
+
+        <input
+        type="text"
+        placeholder="Job Title or Skill">
+
+        <input
+        type="text"
+        placeholder="Location">
+
+        <button>
+            Search Jobs
+        </button>
+
+    </div>
+
+</section>
+
+<section class="features">
+
+    <div class="section-title">
+        <h2>Why Choose JobHub?</h2>
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Multiple Sources</h3>
+            <p>
+                Collect jobs from company websites,
+                job boards and career portals.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Smart Search</h3>
+            <p>
+                Search by skill, company,
+                location and experience level.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Real-Time Updates</h3>
+            <p>
+                Stay updated with the latest
+                job openings across the web.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="jobs">
+
+    <h2>Featured Jobs</h2>
+
+    <div class="job-card">
+        <h3>Java Backend Developer</h3>
+        <p>Company: Tech Solutions</p>
+        <p>Location: Bangalore</p>
+        <button class="view-btn">View Job</button>
+    </div>
+
+    <div class="job-card">
+        <h3>Spring Boot Engineer</h3>
+        <p>Company: Infosys</p>
+        <p>Location: Pune</p>
+        <button class="view-btn">View Job</button>
+    </div>
+
+    <div class="job-card">
+        <h3>Software Developer</h3>
+        <p>Company: TCS</p>
+        <p>Location: Hyderabad</p>
+        <button class="view-btn">View Job</button>
+    </div>
+
+</section>
+
+<footer>
+    © 2026 JobHub | Aggregating opportunities from across the web
+</footer>
+
+<script>
+
+    // Reads the logged-in user from localStorage (key: "jobhubUser").
+    // login.html should save { "name": "...", "email": "..." } to this
+    // key when "Create Account" / "Sign In" succeeds, then redirect here.
+    function getLoggedInUser(){
+        try{
+            const raw = localStorage.getItem("jobhubUser");
+            return raw ? JSON.parse(raw) : null;
+        }catch(e){
+            return null;
+        }
+    }
+
+    function getInitials(name){
+        return name
+            .split(" ")
+            .filter(Boolean)
+            .slice(0,2)
+            .map(p => p[0].toUpperCase())
+            .join("");
+    }
+
+    function renderAuthSection(){
+        const authSection = document.getElementById("authSection");
+        const user = getLoggedInUser();
+
+        if(user && user.name){
+            const firstName = user.name.split(" ")[0];
+
+            authSection.innerHTML = `
+                <div class="profile-chip" id="profileChip">
+                    <div class="avatar-circle">${getInitials(user.name)}</div>
+                    <span>Hello, ${firstName}</span>
+                    <span class="chip-caret">▾</span>
+                </div>
+                <div class="profile-dropdown" id="profileDropdown">
+                    <a href="jobhub-profile.html">My Profile</a>
+                    <a href="jobs.html">Saved Jobs</a>
+                    <button class="logout-option" id="logoutBtn">Logout</button>
+                </div>
+            `;
+
+            const chip = document.getElementById("profileChip");
+            const dropdown = document.getElementById("profileDropdown");
+
+            chip.addEventListener("click", function(e){
+                e.stopPropagation();
+                dropdown.classList.toggle("open");
+            });
+
+            document.addEventListener("click", function(){
+                dropdown.classList.remove("open");
+            });
+
+            document.getElementById("logoutBtn").addEventListener("click", function(){
+                localStorage.removeItem("jobhubUser");
+                renderAuthSection();
+            });
+
+        } else {
+            authSection.innerHTML = `
+                <button class="login-btn"><a href="login.html">Login</a></button>
+            `;
+        }
+    }
+
+    renderAuthSection();
+
+</script>
+
+</body>
+</html>

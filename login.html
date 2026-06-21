@@ -648,6 +648,11 @@
 
     requestAnimationFrame(draw);
   }
+  localStorage.setItem("jobhubUser", JSON.stringify({
+  name: fullNameInputValue,   // e.g. "Himanshi Srivastava"
+  email: emailInputValue
+}));
+window.location.href = "index.html";
   draw();
 </script>
 </body>
