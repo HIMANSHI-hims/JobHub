@@ -1,7 +1,7 @@
 This project is a practice or a dummy project mainly used for learning the backend concepts in java..for now only the frontend of the project is prepared and will continue with the backend soon.
 This is a Web Scraping project known as JOBHUB which basically a carrier-oriented website for searching for various jobs all across the globe.
 This has a option for a personalized profile info where we can upload our personal info,resume, qualifications and experiences.
-The frontend is designed via HTML,CSS and Javascript.
+The frontend is designed via HTML,CSS and Javascript..
 For the web scraping and the backend we intend to use the Java language, JSOUP and the APIs.
 The HTML Technologies used in the pages..home.html , login.html and profile.html
 The profile page is initiatly made of a dummy name AANYA SHARMA.Now this is changed to a dynamic profile
